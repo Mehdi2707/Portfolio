@@ -1,0 +1,38 @@
+.btn-outline-danger
+{
+  color: #df2c2c !important;
+  border-color: #df2c2c !important;
+}
+
+p
+{
+  font-family: 'Roboto', sans-serif;
+  color: white;
+}
+
+.titre
+{
+  font-family: 'Ruda', sans-serif;
+  color: white;
+}
+
+.btn-outline-danger:hover
+{
+  color: white !important;
+  border-color: #df2c2c !important;
+}
+#portfolio
+{
+  background-image: url('../../public/Images/SL-093020-35920-01.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+#profile-image {
+  transition: transform 1s ease;
+}
+
+.rotated {
+  transform: rotateY(180deg);
+}

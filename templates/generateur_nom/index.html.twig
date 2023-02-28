@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Générateur de nom{% endblock %}
+
+{% block body %}
+    <body>
+        <button class="generate_name" data-url="{{ url }}">Donne moi un nom !</button>
+        </br></br>
+        <div id="nom"></div>
+    </body>
+{% endblock %}

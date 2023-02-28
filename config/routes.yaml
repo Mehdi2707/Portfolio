@@ -3,3 +3,11 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+path_to_names:
+    path: /Data/analyses-trails-in-france-prenoms-hf.csv
+    controller: Symfony\Component\HttpFoundation\File\File::createFromPath('../public/Data/analyses-trails-in-france-prenoms-hf.csv')
+
+path_to_images:
+    path: /Images/
+    controller: Symfony\Component\HttpFoundation\File\File::createFromPath('../public/Images/')

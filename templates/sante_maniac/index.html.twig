@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+<body>
+    <!--
+        Mettre trois element avec ce code et id e0/e1/e2
+        <div id="e1"></div>
+    -->
+
+    <script>
+
+        var link = window.location.href;
+        var array = [  {"lien" : "https://santemaniac.com/limportance-du-sport-sur-la-sante/",
+            "image" : "https://santemaniac.com/wp-content/uploads/2023/02/man-g4018d98e5_1920-1024x660.jpg",
+            "alt" : "sport bon pour la santé",
+            "srcset" : "https://santemaniac.com/wp-content/uploads/2023/02/man-g4018d98e5_1920-1024x660.jpg 1024w, https://santemaniac.com/wp-content/uploads/2023/02/man-g4018d98e5_1920-300x193.jpg 300w, https://santemaniac.com/wp-content/uploads/2023/02/man-g4018d98e5_1920-768x495.jpg 768w, https://santemaniac.com/wp-content/uploads/2023/02/man-g4018d98e5_1920-1536x990.jpg 1536w, https://santemaniac.com/wp-content/uploads/2023/02/man-g4018d98e5_1920.jpg 1920w",
+            "titre" : "L'importance du sport sur la santé"},
+
+            {"lien" : "https://santemaniac.com/quels-sports-pour-etre-en-forme/",
+                "image" : "https://santemaniac.com/wp-content/uploads/2023/02/pexels-victor-freitas-841130-1024x683.jpg",
+                "alt" : "quels sports pour etre en forme",
+                "srcset" : "https://santemaniac.com/wp-content/uploads/2023/02/pexels-victor-freitas-841130-1024x683.jpg 1024w, https://santemaniac.com/wp-content/uploads/2023/02/pexels-victor-freitas-841130-300x200.jpg 300w, https://santemaniac.com/wp-content/uploads/2023/02/pexels-victor-freitas-841130-768x512.jpg 768w, https://santemaniac.com/wp-content/uploads/2023/02/pexels-victor-freitas-841130-1536x1024.jpg 1536w, https://santemaniac.com/wp-content/uploads/2023/02/pexels-victor-freitas-841130-2048x1365.jpg 2048w",
+                "titre" : "Quels sports pour être en forme ?"},
+
+            {"lien" : "https://santemaniac.com/les-avantages-du-sport/",
+                "image" : "https://santemaniac.com/wp-content/uploads/2023/02/pexels-the-lazy-artist-gallery-2247179-1024x716.jpg",
+                "alt" : "avantages du sport",
+                "srcset" : "https://santemaniac.com/wp-content/uploads/2023/02/pexels-the-lazy-artist-gallery-2247179-1024x716.jpg 1024w, https://santemaniac.com/wp-content/uploads/2023/02/pexels-the-lazy-artist-gallery-2247179-300x210.jpg 300w, https://santemaniac.com/wp-content/uploads/2023/02/pexels-the-lazy-artist-gallery-2247179-768x537.jpg 768w, https://santemaniac.com/wp-content/uploads/2023/02/pexels-the-lazy-artist-gallery-2247179-1536x1073.jpg 1536w, https://santemaniac.com/wp-content/uploads/2023/02/pexels-the-lazy-artist-gallery-2247179-2048x1431.jpg 2048w",
+                "titre" : "Les avantages du sport"},
+
+
+            {"lien" : "https://santemaniac.com/lalimentation-dans-le-sport/",
+                "image" : "https://santemaniac.com/wp-content/uploads/2023/02/pexels-ella-olsson-1640777-768x512.jpg",
+                "alt" : "importance de l'alimentation dans le sport",
+                "srcset" : "https://santemaniac.com/wp-content/uploads/2023/02/pexels-ella-olsson-1640777-768x512.jpg 768w, https://santemaniac.com/wp-content/uploads/2023/02/pexels-ella-olsson-1640777-300x200.jpg 300w, https://santemaniac.com/wp-content/uploads/2023/02/pexels-ella-olsson-1640777-1024x683.jpg 1024w, https://santemaniac.com/wp-content/uploads/2023/02/pexels-ella-olsson-1640777-1536x1024.jpg 1536w, https://santemaniac.com/wp-content/uploads/2023/02/pexels-ella-olsson-1640777-2048x1365.jpg 2048w",
+                "titre" : "L'alimentation dans le sport"},
+
+            {"lien" : "https://santemaniac.com/les-aliments-a-privilegier-et-a-bannir-pour-une-perte-de-poids/",
+                "image" : "https://santemaniac.com/wp-content/uploads/2023/02/Design-sans-titre-768x614.png",
+                "alt" : "aliments à privilégier et à bannir",
+                "srcset" : "https://santemaniac.com/wp-content/uploads/2023/02/Design-sans-titre-768x614.png 768w, https://santemaniac.com/wp-content/uploads/2023/02/Design-sans-titre-300x240.png 300w, https://santemaniac.com/wp-content/uploads/2023/02/Design-sans-titre-1024x819.png 1024w, https://santemaniac.com/wp-content/uploads/2023/02/Design-sans-titre-1536x1229.png 1536w, https://santemaniac.com/wp-content/uploads/2023/02/Design-sans-titre.png 2000w",
+                "titre" : "Les aliments à privilégier et à bannir pour une perte de poids"},
+
+            {"lien" : "https://santemaniac.com/les-aliments-a-privilegier-et-a-bannir-pour-une-prise-de-masse/",
+                "image" : "https://santemaniac.com/wp-content/uploads/2023/02/Design-sans-titre2-768x614.png",
+                "alt" : "aliments à privilégier et à bannir pour prise de masse",
+                "srcset" : "https://santemaniac.com/wp-content/uploads/2023/02/Design-sans-titre2-768x614.png 768w, https://santemaniac.com/wp-content/uploads/2023/02/Design-sans-titre2-300x240.png 300w, https://santemaniac.com/wp-content/uploads/2023/02/Design-sans-titre2-1024x819.png 1024w, https://santemaniac.com/wp-content/uploads/2023/02/Design-sans-titre2-1536x1229.png 1536w, https://santemaniac.com/wp-content/uploads/2023/02/Design-sans-titre2.png 2000w",
+                "titre" : "Les aliments à privilégier et à bannir pour une prise de masse"},
+
+            {"lien" : "https://santemaniac.com/quels-sports-pour-etre-en-forme/",
+                "image" : "https://santemaniac.com/wp-content/uploads/2023/02/pexels-victor-freitas-841130-1024x683.jpg",
+                "alt" : "quels sports pour etre en forme",
+                "srcset" : "https://santemaniac.com/wp-content/uploads/2023/02/pexels-victor-freitas-841130-1024x683.jpg 1024w, https://santemaniac.com/wp-content/uploads/2023/02/pexels-victor-freitas-841130-300x200.jpg 300w, https://santemaniac.com/wp-content/uploads/2023/02/pexels-victor-freitas-841130-768x512.jpg 768w, https://santemaniac.com/wp-content/uploads/2023/02/pexels-victor-freitas-841130-1536x1024.jpg 1536w, https://santemaniac.com/wp-content/uploads/2023/02/pexels-victor-freitas-841130-2048x1365.jpg 2048w",
+                "titre" : "Quels sports pour être en forme ?"},
+
+            {"lien" : "https://santemaniac.com/differents-types-dactivites-physique/",
+                "image" : "https://santemaniac.com/wp-content/uploads/2023/02/gym-g85c197d76_1920-1024x683.png",
+                "alt" : "activité physique",
+                "srcset" : "https://santemaniac.com/wp-content/uploads/2023/02/gym-g85c197d76_1920-1024x683.png 1024w, https://santemaniac.com/wp-content/uploads/2023/02/gym-g85c197d76_1920-300x200.png 300w, https://santemaniac.com/wp-content/uploads/2023/02/gym-g85c197d76_1920-768x512.png 768w, https://santemaniac.com/wp-content/uploads/2023/02/gym-g85c197d76_1920-1536x1024.png 1536w, https://santemaniac.com/wp-content/uploads/2023/02/gym-g85c197d76_1920.png 1920w",
+                "titre" : "Différents types d'activités physique"},
+
+            {"lien" : "https://santemaniac.com/les-bienfaits-du-sport-matinal/",
+                "image" : "https://santemaniac.com/wp-content/uploads/2023/02/to-run-geef855844_1920-1024x731.jpg",
+                "alt" : "sport matinal",
+                "srcset" : "https://santemaniac.com/wp-content/uploads/2023/02/to-run-geef855844_1920-1024x731.jpg 1024w, https://santemaniac.com/wp-content/uploads/2023/02/to-run-geef855844_1920-300x214.jpg 300w, https://santemaniac.com/wp-content/uploads/2023/02/to-run-geef855844_1920-768x548.jpg 768w, https://santemaniac.com/wp-content/uploads/2023/02/to-run-geef855844_1920-1536x1097.jpg 1536w, https://santemaniac.com/wp-content/uploads/2023/02/to-run-geef855844_1920.jpg 1920w",
+                "titre" : "Les bienfaits du sport matinal"},
+
+            {"lien" : "https://santemaniac.com/4-piliers-pour-etre-en-bonne-sante/",
+                "image" : "https://santemaniac.com/wp-content/uploads/2023/02/woman-g42be89293_1920-1024x684.jpg",
+                "alt" : "bonne santé",
+                "srcset" : "https://santemaniac.com/wp-content/uploads/2023/02/woman-g42be89293_1920-1024x684.jpg 1024w, https://santemaniac.com/wp-content/uploads/2023/02/woman-g42be89293_1920-300x200.jpg 300w, https://santemaniac.com/wp-content/uploads/2023/02/woman-g42be89293_1920-768x513.jpg 768w, https://santemaniac.com/wp-content/uploads/2023/02/woman-g42be89293_1920-1536x1026.jpg 1536w, https://santemaniac.com/wp-content/uploads/2023/02/woman-g42be89293_1920.jpg 1920w",
+                "titre" : "4 piliers pour être en bonne santé"},
+
+            {"lien" : "https://santemaniac.com/sante-et-bien-etre/",
+                "image" : "https://santemaniac.com/wp-content/uploads/2023/02/girl-g8e366a871_1920-1024x683.jpg",
+                "alt" : "santé et bien être",
+                "srcset" : "https://santemaniac.com/wp-content/uploads/2023/02/girl-g8e366a871_1920-1024x683.jpg 1024w, https://santemaniac.com/wp-content/uploads/2023/02/girl-g8e366a871_1920-300x200.jpg 300w, https://santemaniac.com/wp-content/uploads/2023/02/girl-g8e366a871_1920-768x512.jpg 768w, https://santemaniac.com/wp-content/uploads/2023/02/girl-g8e366a871_1920-1536x1024.jpg 1536w, https://santemaniac.com/wp-content/uploads/2023/02/girl-g8e366a871_1920.jpg 1920w",
+                "titre" : "Santé & bien être"},
+
+            {"lien" : "https://santemaniac.com/sante-et-bien-etre-par-les-plantes/",
+                "image" : "https://santemaniac.com/wp-content/uploads/2023/02/pexels-designecologist-1005058-1024x683.jpg",
+                "alt" : "santé bien être par les plantes",
+                "srcset" : "https://santemaniac.com/wp-content/uploads/2023/02/pexels-designecologist-1005058-1024x683.jpg 1024w, https://santemaniac.com/wp-content/uploads/2023/02/pexels-designecologist-1005058-300x200.jpg 300w, https://santemaniac.com/wp-content/uploads/2023/02/pexels-designecologist-1005058-768x512.jpg 768w, https://santemaniac.com/wp-content/uploads/2023/02/pexels-designecologist-1005058-1536x1024.jpg 1536w, https://santemaniac.com/wp-content/uploads/2023/02/pexels-designecologist-1005058-2048x1365.jpg 2048w",
+                "titre" : "Santé et bien être par les plantes"},
+        ];
+
+        function shuffleArrayAndReturnThreeItems(array, link) {
+            const shuffledArray = array.sort(() => Math.random() - 0.5);
+            const filteredArray = shuffledArray.filter(item => item.lien !== link);
+            return filteredArray.slice(0, 3);
+        }
+
+        var tab = shuffleArrayAndReturnThreeItems(array, link);
+
+        for( var i = 0 ; i < tab.length ; i++ )
+        {
+            document.getElementById("e"+i).innerHTML =
+                "<a href=\""+tab[i]["lien"]+"\">"+
+                "<img decoding=\"async\" width=\"780\" height=\"503\" src=\""+tab[i]["image"]+
+                "\" class=\"attachment-large size-large wp-image-360\" alt=\""+tab[i]["alt"]+
+                "\" loading=\"lazy\" srcset=\""+tab[i]["srcset"]+"\" sizes=\"(max-width: 780px) 100vw, 780px\"></a>"+
+                "<h2 style=\"font-size: 20px;text-align: center;\" class=\"elementor-heading-title elementor-size-default\"><a style=\"color: #f2edeb;\" href=\""+
+                tab[i]["lien"]+"\">"+tab[i]["titre"]+"</a></h2>";
+        }
+
+    </script>
+</body>
+{% endblock %}
