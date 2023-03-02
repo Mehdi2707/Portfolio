@@ -4,18 +4,38 @@
 
 {% block body %}
 <body id="portfolio">
-    <header>
-        <nav class="navbar navbar-light mb-5" style="background-color: #bcbcbc;">
-            <button type="button" id="btn_accueil" class="btn btn-outline-danger mx-auto" data-url="{{ path('app_portfolio_accueil') }}">Introduction</button>
-            <button type="button" id="btn_experiences" class="btn btn-outline-danger mx-auto" data-url="{{ path('app_portfolio_experiences') }}">Mes expériences</button>
-            <a class="navbar-brand m-auto" href="{{ path('app_portfolio') }}">
-                <img style="border-radius: 15%;" src="{{ logo }}" width="150" height="150" class="d-inline-block align-top" alt="logo">
-            </a>
-            <button type="button" id="btn_formations" class="btn btn-outline-danger mx-auto" data-url="{{ path('app_portfolio_formations') }}">Mes formations</button>
-            <button type="button" id="btn_contact" class="btn btn-outline-danger mx-auto" data-url="{{ path('app_portfolio_contact') }}">Contact</button>
+
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light mb-5 fixed-top header" style="background-color:rgba(255, 255, 255, 0.2);">
+            <button class="navbar-toggler m-5" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-around" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto w-100">
+                    <li class="nav-item btn-media m-auto">
+                        <button type="button" id="btn_accueil" class="btn btn-outline-danger mx-auto" data-url="{{ path('app_portfolio_accueil') }}">Introduction</button>
+                    </li>
+                    <li class="nav-item btn-media m-auto">
+                        <button type="button" id="btn_experiences" class="btn btn-outline-danger mx-auto" data-url="{{ path('app_portfolio_experiences') }}">Mes expériences</button>
+                    </li>
+                    <li class="nav-item m-auto">
+                        <a class="navbar-brand m-auto" href="{{ path('app_portfolio') }}">
+                            <img style="border-radius: 15%;" src="{{ logo }}" width="150" height="150" class="d-inline-block align-top" alt="logo">
+                        </a>
+                    </li>
+                    <li class="nav-item btn-media m-auto">
+                        <button type="button" id="btn_formations" class="btn btn-outline-danger mx-auto" data-url="{{ path('app_portfolio_formations') }}">Mes formations</button>
+                    </li>
+                    <li class="nav-item btn-media m-auto">
+                        <button type="button" id="btn_contact" class="btn btn-outline-danger mx-auto" data-url="{{ path('app_portfolio_contact') }}">Contact</button>
+                    </li>
+                </ul>
+            </div>
         </nav>
-    </header>
-    <div class="container contenu mb-5">
+    </div>
+
+    <div class="container contenu mb-5" style="margin-top: 15rem; padding-top: 50px;">
         {% include 'portfolio/accueil.html.twig' %}
     </div>
 

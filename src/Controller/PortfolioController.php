@@ -12,7 +12,7 @@ class PortfolioController extends AbstractController
     #[Route('/portfolio', name: 'app_portfolio')]
     public function index(UrlGeneratorInterface $urlGenerator): Response
     {
-        $logo = $urlGenerator->generate('path_to_images').'Logo_Mehdi_1.png';
+        $logo = $urlGenerator->generate('path_to_images').'Logo_mehdi_3.png';
         $photoProfil = $urlGenerator->generate('path_to_images').'received_5457719520910618.jpeg';
         $imageSymfony = $urlGenerator->generate('path_to_images').'symfony.jpg';
         $imageChatgpt = $urlGenerator->generate('path_to_images').'ChatGPT_NEW_LEAD.jpg';
@@ -30,7 +30,16 @@ class PortfolioController extends AbstractController
     #[Route('/portfolio/accueil', name: 'app_portfolio_accueil')]
     public function accueil(UrlGeneratorInterface $urlGenerator): Response
     {
+        $photoProfil = $urlGenerator->generate('path_to_images').'received_5457719520910618.jpeg';
+        $imageSymfony = $urlGenerator->generate('path_to_images').'symfony.jpg';
+        $imageChatgpt = $urlGenerator->generate('path_to_images').'ChatGPT_NEW_LEAD.jpg';
+        $imageStack = $urlGenerator->generate('path_to_images').'1_yTdreaXaKNbiVM5-lgj-0w.png';
+
         return $this->render('portfolio/accueil.html.twig', [
+            'photo_de_profil' => $photoProfil,
+            'image_symfony' => $imageSymfony,
+            'image_chatgpt' => $imageChatgpt,
+            'image_stack' => $imageStack
         ]);
     }
 

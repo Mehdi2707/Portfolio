@@ -17,7 +17,7 @@ $(document).ready(function () {
         $('#profile-image').removeClass('rotated');
     }, 1000);
 
-    $("nav button").on("click", function () {
+    $("#btn_accueil, #btn_experiences, #btn_formations, #btn_contact").on("click", function () {
         const attrId = $(this).attr('id');
         const url = $('#'+attrId).data('url');
         $('.contenu').fadeOut(1000, function() {
@@ -35,6 +35,35 @@ $(document).ready(function () {
     });
 });
 
+const mediaQuery = window.matchMedia('(max-width: 768px)');
+
+function handleTabletChange(e) {
+    // Check if the media query is true
+    if (e.matches) {
+        // Ajouter la classe "mobile" à l'élément avec l'id "example"
+        $('.btn-media').addClass('button-media');
+    } else {
+        // Supprimer la classe "mobile" de l'élément avec l'id "example"
+        $('.btn-media').removeClass('button-media');
+    }
+}
+
+// Ajouter un listener pour écouter les changements de la largeur de l'écran
+mediaQuery.addListener(handleTabletChange);
+
+// Appeler la fonction handleTabletChange au chargement de la page
+handleTabletChange(mediaQuery);
+
+
+$(window).scroll(function() {
+    if ($(window).scrollTop() > 0) {
+        $('.header').css('background-color', '#000C2C');
+        $('.header').css('transition', 'background-color 0.5s ease-in-out');
+    } else {
+        $('.header').css('background-color', 'rgba(255, 255, 255, 0.2)');
+        $('.header').css('transition', 'background-color 0.5s ease-in-out');
+    }
+});
 
 function generate_html(url)
 {
