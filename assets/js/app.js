@@ -20,18 +20,22 @@ $(document).ready(function () {
     $("#btn_accueil, #btn_experiences, #btn_formations, #btn_contact").on("click", function () {
         const attrId = $(this).attr('id');
         const url = $('#'+attrId).data('url');
-        $('.contenu').fadeOut(1000, function() {
+        $('.contenu').fadeOut(500, function() {
             generate_html(url);
-            $('.contenu').fadeIn(1000);
+            $('.contenu').fadeIn(500);
         });
     });
 
-    $(".btn_contact").on("click", function () {
-        const url = $(this).data('url');
-        $('.contenu').fadeOut(1000, function() {
+    $(document).on("click", ".btn_contact", function () {
+        const url = $(this).data('url');console.log(url);
+        $('.contenu').fadeOut(500, function() {
             generate_html(url);
-            $('.contenu').fadeIn(1000);
+            $('.contenu').fadeIn(500);
         });
+    });
+
+    $('.navbar-toggler').on('click', function () {
+        $('.contenu').toggleClass('add-margin-media');
     });
 });
 

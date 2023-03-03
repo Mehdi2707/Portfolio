@@ -40,3 +40,14 @@ p
 .button-media {
   height: 3rem;
 }
+
+.add-margin-media
+{
+  margin-top: 30rem !important;
+}
+
+@media screen and (max-width: 768px) {
+  .contenu {
+    height: 120rem !important;
+  }
+}

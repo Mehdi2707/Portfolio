@@ -16,14 +16,14 @@ class PortfolioController extends AbstractController
         $photoProfil = $urlGenerator->generate('path_to_images').'received_5457719520910618.jpeg';
         $imageSymfony = $urlGenerator->generate('path_to_images').'symfony.jpg';
         $imageChatgpt = $urlGenerator->generate('path_to_images').'ChatGPT_NEW_LEAD.jpg';
-        $imageStack = $urlGenerator->generate('path_to_images').'1_yTdreaXaKNbiVM5-lgj-0w.png';
+        $imageBlog = $urlGenerator->generate('path_to_images').'cap_blog.png';
 
         return $this->render('portfolio/index.html.twig', [
             'logo' => $logo,
             'photo_de_profil' => $photoProfil,
             'image_symfony' => $imageSymfony,
             'image_chatgpt' => $imageChatgpt,
-            'image_stack' => $imageStack
+            'image_blog' => $imageBlog
         ]);
     }
 
@@ -33,13 +33,13 @@ class PortfolioController extends AbstractController
         $photoProfil = $urlGenerator->generate('path_to_images').'received_5457719520910618.jpeg';
         $imageSymfony = $urlGenerator->generate('path_to_images').'symfony.jpg';
         $imageChatgpt = $urlGenerator->generate('path_to_images').'ChatGPT_NEW_LEAD.jpg';
-        $imageStack = $urlGenerator->generate('path_to_images').'1_yTdreaXaKNbiVM5-lgj-0w.png';
+        $imageBlog = $urlGenerator->generate('path_to_images').'cap_blog.png';
 
         return $this->render('portfolio/accueil.html.twig', [
             'photo_de_profil' => $photoProfil,
             'image_symfony' => $imageSymfony,
             'image_chatgpt' => $imageChatgpt,
-            'image_stack' => $imageStack
+            'image_blog' => $imageBlog
         ]);
     }
 

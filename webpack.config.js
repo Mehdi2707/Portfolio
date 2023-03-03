@@ -25,6 +25,7 @@ Encore
     .addEntry('bootstrapjs', './node_modules/bootstrap/dist/js/bootstrap.bundle.js')
     .addStyleEntry('style', './assets/css/style.scss')
     .addStyleEntry('bootstrapcss', './node_modules/bootstrap/dist/css/bootstrap.css')
+    .addStyleEntry('css/fontawesome', '@fortawesome/fontawesome-free/css/all.css')
 
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
