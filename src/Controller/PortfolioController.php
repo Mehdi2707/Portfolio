@@ -44,10 +44,16 @@ class PortfolioController extends AbstractController
     }
 
     #[Route('/portfolio/experiences', name: 'app_portfolio_experiences')]
-    public function experiences(): Response
+    public function experiences(UrlGeneratorInterface $urlGenerator): Response
     {
+        $imageSymfony = $urlGenerator->generate('path_to_images').'symfony.jpg';
+        $imageChatgpt = $urlGenerator->generate('path_to_images').'ChatGPT_NEW_LEAD.jpg';
+        $imageBlog = $urlGenerator->generate('path_to_images').'cap_blog.png';
+
         return $this->render('portfolio/experiences.html.twig', [
-            'controller_name' => 'PortfolioController',
+            'image_symfony' => $imageSymfony,
+            'image_chatgpt' => $imageChatgpt,
+            'image_blog' => $imageBlog
         ]);
     }
 
