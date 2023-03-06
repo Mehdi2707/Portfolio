@@ -1,11 +1,11 @@
 import $ from 'jquery';
 
 $(document).ready(function () {
-    $(".generate_name").on("click", function () {
+    $(document).on("click", ".generate_name", function () {
         const url = $(this).data('url');
         generate_name(url);
     });
-    $(".generate_profil").on("click", function () {
+    $(document).on("click", ".generate_profil", function () {
         const url = $(this).data('url');
         generate_profil(url);
     });
@@ -17,7 +17,7 @@ $(document).ready(function () {
         $('#profile-image').removeClass('rotated');
     }, 1000);
 
-    $("#btn_accueil, #btn_experiences, #btn_formations, #btn_contact").on("click", function () {
+    $("#btn_accueil, #btn_experiences, #btn_formations, #btn_contact, #generateur_profil, #generateur_nom").on("click", function () {
         const attrId = $(this).attr('id');
         const url = $('#'+attrId).data('url');
         $('.contenu').fadeOut(500, function() {
@@ -27,7 +27,7 @@ $(document).ready(function () {
     });
 
     $(document).on("click", ".btn_contact", function () {
-        const url = $(this).data('url');console.log(url);
+        const url = $(this).data('url');
         $('.contenu').fadeOut(500, function() {
             generate_html(url);
             $('.contenu').fadeIn(500);
@@ -85,7 +85,7 @@ function generate_profil(url)
         const dateArray = data.birth_data.split("-");
         const formattedDate = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
 
-        profil.html('</br>Nom : ' + name + '</br>Adresse : ' + address + '</br>Date de naissance : ' + formattedDate);
+        profil.html('Nom : ' + name + '</br>Adresse : ' + address + '</br>Date de naissance : ' + formattedDate);
     });
 }
 

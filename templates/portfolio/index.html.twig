@@ -83,7 +83,13 @@
                         <h6 class="text-uppercase fw-bold">Produits</h6>
                         <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px"/>
                         <p>
-                            <a target="_blank" href="https://phpstack-954033-3324375.cloudwaysapps.com/" class="text-white">Blog</a>
+                            <a target="_blank" href="{{ lien_blog }}" class="text-white">Blog</a>
+                        </p>
+                        <p>
+                            <a id="generateur_profil" class="text-white" href="#" data-url="{{ path('app_generateur_profil') }}">Générateur de profil aléatoire avec API</a>
+                        </p>
+                        <p>
+                            <a id="generateur_nom" class="text-white" href="#" data-url="{{ path('app_generateur_nom') }}">Générateur de noms aléatoire</a>
                         </p>
                     </div>
                     <!-- Grid column -->

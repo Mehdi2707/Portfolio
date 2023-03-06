@@ -24,32 +24,4 @@
         </p>
     </div>
 </div>
-
-<div class="row justify-content-between">
-    <div class="col-lg-3 card mb-3">
-        <img class="card-img-top" src="{{ image_symfony }}" alt="article symfony">
-        <div class="card-body">
-            <h5 class="card-title">Framework Symfony</h5>
-            <p class="card-text" style="color: black;">Symfony est un ensemble de composants PHP, un framework d'application Web, une philosophie et une communauté - tous travaillant ensemble en harmonie.</p>
-            <a href="https://symfony.com/what-is-symfony" class="btn btn-primary">Voir</a>
-        </div>
-    </div>
-    <div class="col-lg-1"></div>
-    <div class="col-lg-3 card mb-3">
-        <img class="card-img-top" src="{{ image_chatgpt }}" alt="article chatgpt">
-        <div class="card-body">
-            <h5 class="card-title">ChatGPT</h5>
-            <p class="card-text" style="color: black;">ChatGPT est un prototype d'agent conversationnel utilisant l'intelligence artificielle, développé par OpenAI et spécialisé dans le dialogue.</p>
-            <a href="https://openai.com/blog/chatgpt/" class="btn btn-primary">Voir</a>
-        </div>
-    </div>
-    <div class="col-lg-1"></div>
-    <div class="col-lg-3 card mb-3">
-        <img class="card-img-top" src="{{ image_blog }}" alt="mon blog">
-        <div class="card-body">
-            <h5 class="card-title">Blog avec back office</h5>
-            <p class="card-text" style="color: black;">Blog crée avec Symfony, avec gestion des articles, du blog et des utilisateurs dans le back office et sytème de connexion.</p>
-            <a target="_blank" href="https://phpstack-954033-3324375.cloudwaysapps.com/" class="btn btn-primary">Voir</a>
-        </div>
-    </div>
-</div>
+{% include "portfolio/articles.html.twig" %}
