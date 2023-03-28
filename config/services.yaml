@@ -24,3 +24,4 @@ services:
 
 parameters:
     lien_blog: 'https://phpstack-954033-3324375.cloudwaysapps.com/'
+    lien_ecommerce: 'https://phpstack-954033-3398966.cloudwaysapps.com/'

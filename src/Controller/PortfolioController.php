@@ -30,7 +30,8 @@ class PortfolioController extends AbstractController
             'logo' => $this->getLogo(),
             'photo_de_profil' => $this->getPhotoProfil(),
             'image_symfony' => $this->getImageArticle('symfony.jpg'),
-            'image_chatgpt' => $this->getImageArticle('ChatGPT_NEW_LEAD.jpg'),
+            'image_ecommerce' => $this->getImageArticle('ecommerce.png'),
+            'lien_ecommerce' => $this->getParameter('lien_ecommerce'),
             'image_blog' => $this->getImageArticle('cap_blog.png'),
             'lien_blog' => $this->getParameter('lien_blog'),
         ]);
@@ -42,7 +43,8 @@ class PortfolioController extends AbstractController
         $html = $this->renderView('portfolio/accueil.html.twig', [
             'photo_de_profil' => $this->getPhotoProfil(),
             'image_symfony' => $this->getImageArticle('symfony.jpg'),
-            'image_chatgpt' => $this->getImageArticle('ChatGPT_NEW_LEAD.jpg'),
+            'image_ecommerce' => $this->getImageArticle('ecommerce.png'),
+            'lien_ecommerce' => $this->getParameter('lien_ecommerce'),
             'image_blog' => $this->getImageArticle('cap_blog.png'),
             'lien_blog' => $this->getParameter('lien_blog'),
         ]);
@@ -54,7 +56,8 @@ class PortfolioController extends AbstractController
     {
         $html = $this->renderView('portfolio/experiences.html.twig', [
             'image_symfony' => $this->getImageArticle('symfony.jpg'),
-            'image_chatgpt' => $this->getImageArticle('ChatGPT_NEW_LEAD.jpg'),
+            'image_ecommerce' => $this->getImageArticle('ecommerce.png'),
+            'lien_ecommerce' => $this->getParameter('lien_ecommerce'),
             'image_blog' => $this->getImageArticle('cap_blog.png'),
             'lien_blog' => $this->getParameter('lien_blog'),
         ]);
@@ -66,7 +69,8 @@ class PortfolioController extends AbstractController
     {
         $html = $this->renderView('portfolio/articles.html.twig', [
             'image_symfony' => $this->getImageArticle('symfony.jpg'),
-            'image_chatgpt' => $this->getImageArticle('ChatGPT_NEW_LEAD.jpg'),
+            'image_ecommerce' => $this->getImageArticle('ecommerce.png'),
+            'lien_ecommerce' => $this->getParameter('lien_ecommerce'),
             'image_blog' => $this->getImageArticle('cap_blog.png'),
             'lien_blog' => $this->getParameter('lien_blog'),
         ]);
@@ -78,7 +82,8 @@ class PortfolioController extends AbstractController
     {
         $html = $this->renderView('portfolio/formations.html.twig', [
             'image_symfony' => $this->getImageArticle('symfony.jpg'),
-            'image_chatgpt' => $this->getImageArticle('ChatGPT_NEW_LEAD.jpg'),
+            'image_ecommerce' => $this->getImageArticle('ecommerce.png'),
+            'lien_ecommerce' => $this->getParameter('lien_ecommerce'),
             'image_blog' => $this->getImageArticle('cap_blog.png'),
             'lien_blog' => $this->getParameter('lien_blog'),
         ]);
@@ -90,7 +95,8 @@ class PortfolioController extends AbstractController
     {
         $html = $this->renderView('portfolio/contact.html.twig', [
             'image_symfony' => $this->getImageArticle('symfony.jpg'),
-            'image_chatgpt' => $this->getImageArticle('ChatGPT_NEW_LEAD.jpg'),
+            'image_ecommerce' => $this->getImageArticle('ecommerce.png'),
+            'lien_ecommerce' => $this->getParameter('lien_ecommerce'),
             'image_blog' => $this->getImageArticle('cap_blog.png'),
             'lien_blog' => $this->getParameter('lien_blog'),
         ]);
@@ -102,7 +108,8 @@ class PortfolioController extends AbstractController
     {
         $html = $this->renderView('portfolio/generateur_profil.html.twig', [
             'image_symfony' => $this->getImageArticle('symfony.jpg'),
-            'image_chatgpt' => $this->getImageArticle('ChatGPT_NEW_LEAD.jpg'),
+            'image_ecommerce' => $this->getImageArticle('ecommerce.png'),
+            'lien_ecommerce' => $this->getParameter('lien_ecommerce'),
             'image_blog' => $this->getImageArticle('cap_blog.png'),
             'lien_blog' => $this->getParameter('lien_blog'),
         ]);
@@ -129,7 +136,8 @@ class PortfolioController extends AbstractController
         $url = $this->generateUrl('path_to_names');
         $html = $this->renderView('portfolio/generateur_nom.html.twig', [
             'image_symfony' => $this->getImageArticle('symfony.jpg'),
-            'image_chatgpt' => $this->getImageArticle('ChatGPT_NEW_LEAD.jpg'),
+            'image_ecommerce' => $this->getImageArticle('ecommerce.png'),
+            'lien_ecommerce' => $this->getParameter('lien_ecommerce'),
             'image_blog' => $this->getImageArticle('cap_blog.png'),
             'lien_blog' => $this->getParameter('lien_blog'),
             'url' => $url,
