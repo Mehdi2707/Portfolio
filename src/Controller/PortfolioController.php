@@ -29,7 +29,8 @@ class PortfolioController extends AbstractController
         return $this->render('portfolio/index.html.twig', [
             'logo' => $this->getLogo(),
             'photo_de_profil' => $this->getPhotoProfil(),
-            'image_symfony' => $this->getImageArticle('symfony.jpg'),
+            'image_recettes' => $this->getImageArticle('recettes.png'),
+            'lien_recettes' => $this->getParameter('lien_recettes'),
             'image_ecommerce' => $this->getImageArticle('ecommerce.png'),
             'lien_ecommerce' => $this->getParameter('lien_ecommerce'),
             'image_blog' => $this->getImageArticle('cap_blog.png'),
@@ -42,7 +43,8 @@ class PortfolioController extends AbstractController
     {
         $html = $this->renderView('portfolio/accueil.html.twig', [
             'photo_de_profil' => $this->getPhotoProfil(),
-            'image_symfony' => $this->getImageArticle('symfony.jpg'),
+            'image_recettes' => $this->getImageArticle('recettes.png'),
+            'lien_recettes' => $this->getParameter('lien_recettes'),
             'image_ecommerce' => $this->getImageArticle('ecommerce.png'),
             'lien_ecommerce' => $this->getParameter('lien_ecommerce'),
             'image_blog' => $this->getImageArticle('cap_blog.png'),
@@ -55,7 +57,8 @@ class PortfolioController extends AbstractController
     public function experiences(): Response
     {
         $html = $this->renderView('portfolio/experiences.html.twig', [
-            'image_symfony' => $this->getImageArticle('symfony.jpg'),
+            'image_recettes' => $this->getImageArticle('recettes.png'),
+            'lien_recettes' => $this->getParameter('lien_recettes'),
             'image_ecommerce' => $this->getImageArticle('ecommerce.png'),
             'lien_ecommerce' => $this->getParameter('lien_ecommerce'),
             'image_blog' => $this->getImageArticle('cap_blog.png'),
@@ -68,7 +71,8 @@ class PortfolioController extends AbstractController
     public function articles(): Response
     {
         $html = $this->renderView('portfolio/articles.html.twig', [
-            'image_symfony' => $this->getImageArticle('symfony.jpg'),
+            'image_recettes' => $this->getImageArticle('recettes.png'),
+            'lien_recettes' => $this->getParameter('lien_recettes'),
             'image_ecommerce' => $this->getImageArticle('ecommerce.png'),
             'lien_ecommerce' => $this->getParameter('lien_ecommerce'),
             'image_blog' => $this->getImageArticle('cap_blog.png'),
@@ -81,7 +85,8 @@ class PortfolioController extends AbstractController
     public function formations(): Response
     {
         $html = $this->renderView('portfolio/formations.html.twig', [
-            'image_symfony' => $this->getImageArticle('symfony.jpg'),
+            'image_recettes' => $this->getImageArticle('recettes.png'),
+            'lien_recettes' => $this->getParameter('lien_recettes'),
             'image_ecommerce' => $this->getImageArticle('ecommerce.png'),
             'lien_ecommerce' => $this->getParameter('lien_ecommerce'),
             'image_blog' => $this->getImageArticle('cap_blog.png'),
@@ -94,7 +99,8 @@ class PortfolioController extends AbstractController
     public function contact(): Response
     {
         $html = $this->renderView('portfolio/contact.html.twig', [
-            'image_symfony' => $this->getImageArticle('symfony.jpg'),
+            'image_recettes' => $this->getImageArticle('recettes.png'),
+            'lien_recettes' => $this->getParameter('lien_recettes'),
             'image_ecommerce' => $this->getImageArticle('ecommerce.png'),
             'lien_ecommerce' => $this->getParameter('lien_ecommerce'),
             'image_blog' => $this->getImageArticle('cap_blog.png'),
@@ -107,7 +113,8 @@ class PortfolioController extends AbstractController
     public function generateur_profil(): Response
     {
         $html = $this->renderView('portfolio/generateur_profil.html.twig', [
-            'image_symfony' => $this->getImageArticle('symfony.jpg'),
+            'image_recettes' => $this->getImageArticle('recettes.png'),
+            'lien_recettes' => $this->getParameter('lien_recettes'),
             'image_ecommerce' => $this->getImageArticle('ecommerce.png'),
             'lien_ecommerce' => $this->getParameter('lien_ecommerce'),
             'image_blog' => $this->getImageArticle('cap_blog.png'),
@@ -135,7 +142,8 @@ class PortfolioController extends AbstractController
     {
         $url = $this->generateUrl('path_to_names');
         $html = $this->renderView('portfolio/generateur_nom.html.twig', [
-            'image_symfony' => $this->getImageArticle('symfony.jpg'),
+            'image_recettes' => $this->getImageArticle('recettes.png'),
+            'lien_recettes' => $this->getParameter('lien_recettes'),
             'image_ecommerce' => $this->getImageArticle('ecommerce.png'),
             'lien_ecommerce' => $this->getParameter('lien_ecommerce'),
             'image_blog' => $this->getImageArticle('cap_blog.png'),
