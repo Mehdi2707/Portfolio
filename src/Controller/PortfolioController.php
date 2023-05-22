@@ -35,6 +35,7 @@ class PortfolioController extends AbstractController
             'lien_ecommerce' => $this->getParameter('lien_ecommerce'),
             'image_blog' => $this->getImageArticle('cap_blog.png'),
             'lien_blog' => $this->getParameter('lien_blog'),
+            'lien_all' => $this->getParameter('lien_all'),
         ]);
     }
 
