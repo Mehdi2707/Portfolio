@@ -1,0 +1,74 @@
+{% extends 'AllYouNeedIsHere/cake/base.html.twig' %}
+
+{% block title %}Contactez-nous{% endblock %}
+
+{% block body %}
+
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-dark bg-img p-5 mb-5">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4 text-uppercase text-white">Contactez-nous</h1>
+                <a href="{{ path('app_cake_index') }}">Accueil</a>
+                <i class="far fa-square text-primary px-2"></i>
+                <a href="{{ path('app_cake_contact') }}">Contactez-nous</a>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- Contact Start -->
+    <div class="container-fluid contact position-relative px-5" style="margin-top: 90px;">
+        <div class="container">
+            <div class="row g-5 mb-5">
+                <div class="col-lg-4 col-md-6">
+                    <div class="bg-primary border-inner text-center text-white p-5">
+                        <i class="bi bi-geo-alt fs-1 text-white"></i>
+                        <h6 class="text-uppercase my-2">Notre pâtisserie</h6>
+                        <span>123 rue du cake, Paris, France</span>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="bg-primary border-inner text-center text-white p-5">
+                        <i class="bi bi-envelope-open fs-1 text-white"></i>
+                        <h6 class="text-uppercase my-2">Écrivez-nous</h6>
+                        <span>info@example.com</span>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="bg-primary border-inner text-center text-white p-5">
+                        <i class="bi bi-phone-vibrate fs-1 text-white"></i>
+                        <h6 class="text-uppercase my-2">Appellez-nous</h6>
+                        <span>+01 23 45 67 89</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control bg-light border-0 px-4" placeholder="Votre Nom" style="height: 55px;">
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="email" class="form-control bg-light border-0 px-4" placeholder="Votre Email" style="height: 55px;">
+                            </div>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control bg-light border-0 px-4" placeholder="Sujet" style="height: 55px;">
+                            </div>
+                            <div class="col-sm-12">
+                                <textarea class="form-control bg-light border-0 px-4 py-3" rows="4" placeholder="Message"></textarea>
+                            </div>
+                            <div class="col-sm-12">
+                                <button class="btn btn-primary border-inner w-100 py-3" type="submit">Envoyer le message</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Contact End -->
+
+{% endblock %}

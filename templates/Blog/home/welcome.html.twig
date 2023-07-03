@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Bienvenue</title>
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+
+</html>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h5 class="card-title">Bienvenue</h5>
+                        <p></p>
+                        <hr>
+
+                        <h5 class="card-title">Informations nécessaires</h5>
+                        <hr>
+
+                        {{ form(form) }}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

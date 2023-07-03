@@ -1,0 +1,40 @@
+{% extends 'AllYouNeedIsHere/cake/base.html.twig' %}
+
+{% block title %}Menu & Prix{% endblock %}
+
+{% block body %}
+
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-dark bg-img p-5 mb-5">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4 text-uppercase text-white">Menu & Prix</h1>
+                <a href="{{ path('app_cake_index') }}">Accueil</a>
+                <i class="far fa-square text-primary px-2"></i>
+                <a href="{{ path('app_cake_menu') }}">Menu & Prix</a>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+    {% include 'AllYouNeedIsHere/cake/_partials/_menu.html.twig' %}
+
+    <!-- Offer Start -->
+    <div class="container-fluid bg-offer my-5 py-5">
+        <div class="container py-5">
+            <div class="row gx-5 justify-content-center">
+                <div class="col-lg-7 text-center">
+                    <div class="section-title position-relative text-center mx-auto mb-4 pb-3" style="max-width: 600px;">
+                        <h2 class="text-primary font-secondary">Pack Kombo spécial</h2>
+                        <h1 class="display-4 text-uppercase text-white">Gâteaux super croustillants</h1>
+                    </div>
+                    <p class="text-white mb-4">Dans ce pack vous trouverez une multitude de gâteaux individuels super croustillant !</p>
+                    <a href="" class="btn btn-primary border-inner py-3 px-5 me-3">Achetez maintenant</a>
+                    <a href="" class="btn btn-dark border-inner py-3 px-5">Lire plus</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Offer End -->
+
+{% endblock %}

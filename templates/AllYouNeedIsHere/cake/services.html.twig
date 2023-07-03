@@ -1,0 +1,54 @@
+{% extends 'AllYouNeedIsHere/cake/base.html.twig' %}
+
+{% block title %}Nos services{% endblock %}
+
+{% block body %}
+
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-dark bg-img p-5 mb-5">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4 text-uppercase text-white">Nos services</h1>
+                <a href="{{ path('app_cake_index') }}">Accueil</a>
+                <i class="far fa-square text-primary px-2"></i>
+                <a href="{{ path('app_cake_services') }}">Nos services</a>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+    <!-- Service Start -->
+    <div class="container-fluid service position-relative px-5 mt-5" style="margin-bottom: 135px;">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-4 col-md-6">
+                    <div class="bg-primary border-inner text-center text-white p-5 h-100">
+                        <h4 class="text-uppercase mb-3">Gâteau d'anniversaire</h4>
+                        <p>Célébrez votre anniversaire en beauté avec notre délicieux gâteau personnalisé, conçu spécialement pour cette occasion spéciale.</p>
+                        <a class="text-uppercase text-dark" href="">Lire plus <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="bg-primary border-inner text-center text-white p-5 h-100">
+                        <h4 class="text-uppercase mb-3">Gâteau de mariage</h4>
+                        <p>Découvrez notre gâteau de mariage exquis, confectionné avec amour et expertise pour votre jour spécial.</p>
+                        <a class="text-uppercase text-dark" href="">Lire plus <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="bg-primary border-inner text-center text-white p-5 h-100">
+                        <h4 class="text-uppercase mb-3">Gâteau personnalisé</h4>
+                        <p>Offrez-vous une expérience unique en créant votre propre gâteau personnalisé ! Choisissez les saveurs, les couleurs et les décorations pour créer un dessert qui correspond à vos goûts et à vos envies.</p>
+                        <a class="text-uppercase text-dark" href="">Lire plus <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-6 text-center">
+                    <h1 class="text-uppercase text-light mb-4">30% de réduction pour cet été</h1>
+                    <a href="" class="btn btn-primary border-inner py-3 px-5">Commander maintenant</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Service Start -->
+
+{% endblock %}

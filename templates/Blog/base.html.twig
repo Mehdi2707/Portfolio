@@ -1,0 +1,122 @@
+{% set menus = menu_service.findAll %}
+{% set options = option_service.findAll %}
+
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-83GEEJNGSS"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-83GEEJNGSS');
+        </script>
+        <title>Blog - {% block title %}{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+
+        {% if is_granted('ROLE_AUTHOR') %}
+            <nav class="py-2 bg-dark border-bottom">
+                <div class="container d-flex flex-wrap">
+                    <div class="dropdown">
+                        <a class="nav nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ options['blog_title'] }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonAdminDashboard">
+                            <li><a class="dropdown-item" href="{{ path('blog_admin') }}">Tableau de bord</a></li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li><a class="dropdown-item" href="{{ ea_gen_url('MenuCrudController') }}">Menus</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <a class="nav nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Ajouter
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonAdminAdd">
+                            <li><a class="dropdown-item" href="{{ ea_gen_url('ArticleCrudController', 'new') }}">Article</a></li>
+                            <li><a class="dropdown-item" href="{{ ea_gen_url('PageCrudController', 'new') }}">Page</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        {% endif %}
+
+        <div class="container">
+            <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+                <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none" href="{{ path('blog_home') }}">
+                    <span class="fs-4">{{ options['blog_title'] }}</span>
+                </a>
+                <ul class="nav nav-pills">
+
+                    {% for menu in menus %}
+                        {% if menu.subMenus.count > 0 %}
+                            <div class="dropdown">
+                                <a class="nav nav-link text-dark dropdown-toggle" href"#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ menu.name }}
+                                </a>
+                                <ul class="dropdown-menu">
+                                    {% for subMenu in menu.subMenus %}
+                                        <li><a class="dropdown-item" href="{{ subMenu|menuLink }}">{{ subMenu.name }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="{{ menu|menuLink }}">{{ menu.name }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                        {% if '1' == options['users_can_register'] %}
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="{{ path('blog_register') }}">S'inscrire</a>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="{{ path('blog_login') }}">Se connecter</a>
+                        </li>
+                    {% else %}
+                        <div class="dropdown">
+                            <a class="nav nav-link text-dark dropdown-toggle" href"#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ app.user.username|capitalize }}
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="{{ path('blog_profile', { username: app.user.username }) }}">Mon profil</a>
+                                    <a class="dropdown-item" href="{{ path('blog_logout') }}">Déconnexion</a>
+                                </li>
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                </ul>
+            </header>
+        </div>
+
+        {% block body %}{% endblock %}
+
+        <div class="container">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+                <div class="col-md-4 d-flex align-content-center">
+                    <span class="copyright">© {{ 'now'|date('Y') }} {{ options['blog_copyright'] }}</span>
+                </div>
+            </footer>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,36 @@
+{% extends 'Ecommerce/base.html.twig' %}
+
+{% block title %}Mon profil{% endblock %}
+
+{% block body %}
+    {% include 'Ecommerce/_partials/_header.html.twig' with {'titre': 'Mes informations'} %}
+    <main class="container">
+        <section class="row">
+            <div class="col-6">
+                <p>Email :</p>
+                <p>Nom :</p>
+                <p>Prénom :</p>
+                <p>Adresse :</p>
+                <p>Code postal :</p>
+                <p>Ville :</p>
+                <p>Compte vérifié :</p>
+            </div>
+            <div class="col-6">
+                <p>{{ app.user.email }}</p>
+                <p>{{ app.user.lastname }}</p>
+                <p>{{ app.user.firstname }}</p>
+                <p>{{ app.user.address }}</p>
+                <p>{{ app.user.zipcode }}</p>
+                <p>{{ app.user.city }}</p>
+                <div class="custom-control custom-switch">
+                    <input class="custom-control-input" type="checkbox" id="switch{{ app.user.id }}" {{ app.user.isVerified ? 'checked' : '' }} disabled>
+                    <label class="custom-control-label" for="switch{{ app.user.id }}"></label>
+                </div>
+            </div>
+            <div class="col-12 text-center">
+                <a href="{{ path('profile_edit') }}" class="btn btn-primary">Modifier mon profil</a>
+                <a href="{{ path('profile_edit_password') }}" class="btn btn-primary">Modifier mon mot de passe</a>
+            </div>
+        </section>
+    </main>
+{% endblock %}

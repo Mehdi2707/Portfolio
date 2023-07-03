@@ -19,11 +19,17 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    App\EventListener\ExceptionListener:
+        tags:
+            - {name: kernel.event_listener, event: kernel.exception}
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
 parameters:
-    lien_blog: 'https://phpstack-954033-3324375.cloudwaysapps.com/'
-    lien_ecommerce: 'https://phpstack-954033-3398966.cloudwaysapps.com/'
     lien_recettes: 'https://phpstack-954033-3535270.cloudwaysapps.com/'
-    lien_all: 'https://phpstack-954033-3542307.cloudwaysapps.com/'
+    medias_directory: 'public/uploads'
+    uploads_directory: 'uploads/'
+    app.jwtsecret: '%env(JWT_SECRET)%'
+    app.mailaddress: '%env(MAIL_ADDRESS)%'
+    images_directory: '%kernel.project_dir%/public/assets/uploads/'

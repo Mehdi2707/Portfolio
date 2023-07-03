@@ -1,0 +1,47 @@
+{% extends 'Blog/base.html.twig' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <h1>{{ article.title }}</h1>
+
+        <hr>
+
+        {{ article.content|raw }}
+
+        <h2 class="comment-title mt-5">
+            <span class="comment-count">
+                {{ article.comments|length }}
+            </span>
+            {% if(article.comments|length > 1) %}
+                commentaires
+            {% else %}
+                commentaire
+            {% endif %}
+        </h2>
+
+        <hr>
+
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div class="comment-area mb-5">
+                {{ form(commentForm, { 'attr': { 'class': 'comment-form' } }) }}
+            </div>
+        {% endif %}
+
+        <div class="comment-list">
+            {% for comment in comments %}
+                {% include 'Blog/comment/index.html.twig' with [comment] %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="d-flex align-items-center justify-content-center">
+            {{ knp_pagination_render(comments) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

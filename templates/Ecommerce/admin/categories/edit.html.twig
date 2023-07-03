@@ -1,0 +1,15 @@
+{% extends "Ecommerce/base.html.twig" %}
+
+{% block title %}Edition d'une catégorie{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            {% include "Ecommerce/_partials/_adminnav.html.twig" %}
+            <main class="col-9 border-light bg-white p-2">
+                <h1>Edition d'une catégorie</h1>
+                {% include "Ecommerce/admin/categories/_form.html.twig"with { 'button_label': 'Modifier' } %}
+            </main>
+        </div>
+    </div>
+{% endblock %}

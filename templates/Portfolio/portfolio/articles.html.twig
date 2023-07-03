@@ -1,0 +1,28 @@
+<div class="row justify-content-between">
+    <div class="col-lg-3 card mb-3">
+        <img class="card-img-top" src="{{ image_recettes }}" alt="recettes en folie">
+        <div class="card-body">
+            <h5 class="card-title">Recettes en folie</h5>
+            <p class="card-text" style="color: black;">Site de partage de recettes crée avec Symfony, système d'administration complet, l'utilisateur peut publier une recette, mettre des commentaires, noté les recettes, les ajoutés aux favoris, etc..</p>
+            <a target="_blank" href="{{ lien_recettes }}" class="btn btn-secondary stretched-link">Voir</a>
+        </div>
+    </div>
+    <div class="col-lg-1"></div>
+    <div class="col-lg-3 card mb-3">
+        <img class="card-img-top" src="{{ image_ecommerce }}" alt="mon site e-commerce">
+        <div class="card-body">
+            <h5 class="card-title">Site e-commerce</h5>
+            <p class="card-text" style="color: black;">Site e-commerce crée avec Symfony, gestion du site avec un système d'administration site e-commerce prêt à l'emploi manque seulement le système de paiement.</p>
+            <a target="_blank" href="{{ path('ecommerce_main') }}" class="btn btn-secondary stretched-link">Voir</a>
+        </div>
+    </div>
+    <div class="col-lg-1"></div>
+    <div class="col-lg-3 card mb-3">
+        <img class="card-img-top" src="{{ image_blog }}" alt="mon blog">
+        <div class="card-body">
+            <h5 class="card-title">Blog avec back office</h5>
+            <p class="card-text" style="color: black;">Blog crée avec Symfony, avec gestion des articles, du blog et des utilisateurs dans le back office et sytème de connexion.</p>
+            <a target="_blank" href="{{ path('blog_home') }}" class="btn btn-secondary stretched-link">Voir</a>
+        </div>
+    </div>
+</div>

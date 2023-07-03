@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta content="patisserie gateau cake vitrine boulangerie" name="keywords">
+        <meta content="Site vitrine type d'une pâtisserie, découvrez nos autres templates ..." name="description">
+        <title>CakeZone - {% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="{{ asset('assetsCake/img/cup-cake.png') }}">
+
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Oswald:wght@500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+
+        <!-- Icon Font Stylesheet -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+        <!-- Libraries Stylesheet -->
+        <link href="{{ asset('assetsCake/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="{{ asset('assetsCake/css/bootstrap.min.css') }}" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="{{ asset('assetsCake/css/style.css') }}" rel="stylesheet">
+
+        {% block stylesheets %}
+        {% endblock %}
+
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" defer></script>
+        <script src="{{ asset('assetsCake/lib/easing/easing.min.js') }}" defer></script>
+        <script src="{{ asset('assetsCake/lib/waypoints/waypoints.min.js') }}" defer></script>
+        <script src="{{ asset('assetsCake/lib/counterup/counterup.min.js') }}" defer></script>
+        <script src="{{ asset('assetsCake/lib/owlcarousel/owl.carousel.min.js') }}" defer></script>
+
+        <!-- Template Javascript -->
+        <script src="{{ asset('assetsCake/js/main.js') }}" defer></script>
+
+        {% block javascripts %}
+        {% endblock %}
+    </head>
+    <body>
+        {% include 'AllYouNeedIsHere/cake/_partials/_header.html.twig' %}
+
+        {% block body %}{% endblock %}
+
+        {% include 'AllYouNeedIsHere/cake/_partials/_footer.html.twig' %}
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-primary border-inner py-3 fs-4 back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+    </body>
+</html>
