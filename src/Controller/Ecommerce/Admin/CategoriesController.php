@@ -12,14 +12,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-#[Route('/admin/categories', name: 'admin_categories_')]
+#[Route('/ecommerce/admin/categories', name: 'admin_categories_')]
 class CategoriesController extends AbstractController
 {
     #[Route('/', name: 'index')]
     public function index(CategoriesRepository $categoriesRepository):Response
     {
         $categories = $categoriesRepository->findBy([], ['categoryOrder' => 'asc']);
-        return $this->render('admin/categories/index.html.twig', [
+        return $this->render('Ecommerce/admin/categories/index.html.twig', [
             'categories' => $categories
         ]);
     }
@@ -61,7 +61,7 @@ class CategoriesController extends AbstractController
             return $this->redirectToRoute('admin_categories_index');
         }
 
-        return $this->render('admin/categories/add.html.twig', [
+        return $this->render('Ecommerce/admin/categories/add.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -88,7 +88,7 @@ class CategoriesController extends AbstractController
             return $this->redirectToRoute('admin_categories_index');
         }
 
-        return $this->render('admin/categories/edit.html.twig', [
+        return $this->render('Ecommerce/admin/categories/edit.html.twig', [
             'form' => $form->createView(),
         ]);
     }

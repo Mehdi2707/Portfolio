@@ -14,6 +14,18 @@ class WelcomeModel
 
     private ?string $username;
 
+    private ?string $email;
+
+    private ?string $lastname;
+
+    private ?string $firstname;
+
+    private ?string $address;
+
+    private ?string $zipcode;
+
+    private ?string $city;
+
     private ?string $password;
 
         /**
@@ -46,6 +58,102 @@ class WelcomeModel
     public function setUsername(?string $username): void
     {
         $this->username = $username;
+    }
+
+    /**
+     * @param string|null
+     */
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string|null $email
+     */
+    public function setEmail(?string $email): void
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @param string|null
+     */
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * @param string|null $lastname
+     */
+    public function setLastname(?string $lastname): void
+    {
+        $this->lastname = $lastname;
+    }
+
+    /**
+     * @param string|null
+     */
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * @param string|null $firstname
+     */
+    public function setFirstname(?string $firstname): void
+    {
+        $this->firstname = $firstname;
+    }
+
+    /**
+     * @param string|null
+     */
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param string|null $address
+     */
+    public function setAddress(?string $address): void
+    {
+        $this->address = $address;
+    }
+
+    /**
+     * @param string|null
+     */
+    public function getZipcode(): ?string
+    {
+        return $this->zipcode;
+    }
+
+    /**
+     * @param string|null $zipcode
+     */
+    public function setZipcode(?string $zipcode): void
+    {
+        $this->zipcode = $zipcode;
+    }
+
+    /**
+     * @param string|null
+     */
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param string|null $city
+     */
+    public function setCity(?string $city): void
+    {
+        $this->city = $city;
     }
 
     /**

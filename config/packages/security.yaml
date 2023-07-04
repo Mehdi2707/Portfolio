@@ -17,7 +17,7 @@ security:
             lazy: true
             provider: app_user_provider
             form_login:
-                default_target_path: ecommerce_main
+                default_target_path: blog_home
                 login_path: blog_login
                 check_path: blog_login
                 enable_csrf: true
@@ -39,7 +39,8 @@ security:
     # - { path: ^/profile, roles: ROLE_USER }
 
     role_hierarchy:
-        ROLE_ADMIN: ROLE_AUTHOR
+        ROLE_ADMIN: ROLE_AUTHOR, ROLE_PRODUCT_ADMIN
+        ROLE_PRODUCT_ADMIN: ROLE_USER
         ROLE_AUTHOR: ROLE_USER
 
 when@test:

@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/utilisateurs', name: 'admin_users_')]
+#[Route('/ecommerce/admin/utilisateurs', name: 'admin_users_')]
 class UsersController extends AbstractController
 {
     #[Route('/', name: 'index')]
@@ -20,7 +20,7 @@ class UsersController extends AbstractController
     {
         $users = $usersRepository->findBy([], ['firstname' => 'asc']);
 
-        return $this->render('admin/users/index.html.twig', [
+        return $this->render('Ecommerce/admin/users/index.html.twig', [
             'users' => $users
         ]);
     }
@@ -49,7 +49,7 @@ class UsersController extends AbstractController
                 $this->addFlash('danger', 'Les mots de passe ne correspondent pas');
         }
 
-        return $this->render('admin/users/edit.html.twig', [
+        return $this->render('Ecommerce/admin/users/edit.html.twig', [
             'user' => $user,
             'form' => $form->createView()
         ]);

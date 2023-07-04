@@ -1,9 +1,9 @@
 {% extends 'Blog/base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
-    <div class="container w-25">
+    <div class="container w-50">
         <form method="post">
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -15,7 +15,7 @@
                 </div>
             {% endif %}
 
-            <h1>Se connecter</h1>
+            <h1>Se connecter<br>(Blog & E-commerce)</h1>
             <label for="inputUsername">Nom d'utilisateur</label>
             <input type="text" value="{{ last_username }}" name="_username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
             <label for="inputPassword">Mot de passe</label>

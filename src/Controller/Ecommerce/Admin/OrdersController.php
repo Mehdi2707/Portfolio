@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/commandes', name: 'admin_orders_')]
+#[Route('/ecommerce/admin/commandes', name: 'admin_orders_')]
 class OrdersController extends AbstractController
 {
     #[Route('/', name: 'index')]
@@ -27,7 +27,7 @@ class OrdersController extends AbstractController
             $ordersDetails[$order->getId()] = $details;
         }
 
-        return $this->render('admin/orders/index.html.twig', [
+        return $this->render('Ecommerce/admin/orders/index.html.twig', [
             'orders' => $orders,
             'ordersDetails' => $ordersDetails
         ]);

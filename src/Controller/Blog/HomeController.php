@@ -11,6 +11,8 @@ use App\Service\ArticleService;
 use App\Service\OptionService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -49,13 +51,26 @@ class HomeController extends AbstractController
 
             $siteTitle = new Option(WelcomeModel::SITE_TITLE_LABEL, WelcomeModel::SITE_TITLE_NAME, $data->getSiteTitle(), TextType::class);
             $siteInstalled = new Option(WelcomeModel::SITE_INSTALLED_LABEL, WelcomeModel::SITE_INSTALLED_NAME, true, null);
+            $usersCanRegister = new Option('Tout le monde peut s\'inscrire', 'users_can_register', true, CheckboxType::class);
+            $nbArticlesParPage = new Option('Nombre d\'articles par page', 'blog_articles_limit', 5, NumberType::class);
+            $copyright = new Option('Texte du copyright', 'blog_copyright', 'Tous droits réservés', TextType::class);
 
             $user = new User($data->getUsername());
             $user->setRoles(['ROLE_ADMIN']);
+            $user->setEmail($data->getEmail());
+            $user->setLastname($data->getLastname());
+            $user->setFirstname($data->getFirstname());
+            $user->setAddress($data->getAddress());
+            $user->setZipcode($data->getZipcode());
+            $user->setCity($data->getCity());
+            $user->setIsVerified(false);
             $user->setPassword($passwordHasher->hashPassword($user, $data->getPassword()));
 
             $em->persist($siteTitle);
             $em->persist($siteInstalled);
+            $em->persist($usersCanRegister);
+            $em->persist($nbArticlesParPage);
+            $em->persist($copyright);
             $em->persist($user);
 
             $em->flush();

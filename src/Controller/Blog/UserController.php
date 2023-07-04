@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 #[Route('/blog', name: 'blog_')]
@@ -57,7 +58,7 @@ class UserController extends AbstractController
     }
 
     #[Route(path: '/user/login', name: 'login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils, Request $request, UrlGeneratorInterface $urlGenerator): Response
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('blog_home');

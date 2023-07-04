@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-#[Route('/admin/produits', name: 'admin_products_')]
+#[Route('/ecommerce/admin/produits', name: 'admin_products_')]
 class ProductsController extends AbstractController
 {
     #[Route('/', name: 'index')]
@@ -23,7 +23,7 @@ class ProductsController extends AbstractController
     {
         $produits = $productsRepository->findAll();
 
-        return $this->render('admin/products/index.html.twig', [
+        return $this->render('Ecommerce/admin/products/index.html.twig', [
             'produits' => $produits
         ]);
     }
@@ -68,7 +68,7 @@ class ProductsController extends AbstractController
             return $this->redirectToRoute('admin_products_index');
         }
 
-        return $this->render('admin/products/add.html.twig', [
+        return $this->render('Ecommerce/admin/products/add.html.twig', [
             'productForm' => $productForm->createView()
         ]);
     }
@@ -114,7 +114,7 @@ class ProductsController extends AbstractController
             return $this->redirectToRoute('admin_products_index');
         }
 
-        return $this->render('admin/products/edit.html.twig', [
+        return $this->render('Ecommerce/admin/products/edit.html.twig', [
             'productForm' => $productForm->createView(),
             'product' => $products
         ]);
@@ -124,7 +124,7 @@ class ProductsController extends AbstractController
     public function delete(Products $products): Response
     {
         $this->denyAccessUnlessGranted('PRODUCT_DELETE', $products);
-        return $this->render('admin/products/index.html.twig', [
+        return $this->render('Ecommerce/admin/products/index.html.twig', [
 
         ]);
     }
