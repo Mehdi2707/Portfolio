@@ -451,7 +451,7 @@ ul.email li i {
 
 .we_do {
      background: #fff;
-     padding: 90px 0 190px 0;
+     padding: 90px 0 0 0;
 }
 
 .we_do .titlepage::before {
@@ -745,7 +745,6 @@ ul.email li i {
 
 .contact {
      background: #fefeff;
-     padding: 90px 0;
 }
 
 .contact .titlepage::before {
@@ -823,7 +822,7 @@ ul.email li i {
 }
 
 .clientsl_text i img {
-     margin-top: -89px;
+     margin-top: -20px;
      display: block;
      margin-right: 20px;
      float: left;

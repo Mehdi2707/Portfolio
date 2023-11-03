@@ -143,11 +143,15 @@ File Name: responsive.css
 
 @media (max-width: 575px) {
     .we_box {
-        height: fit-content;
+        height: 30rem;
         border: #e6e7e8 solid 1px;
         transition: ease-in all 0.5s;
-        padding: 40px;
+        padding: 15px;
         margin-bottom: 26px;
+    }
+    .we_do {
+        background: #fff;
+        padding: 50px 0 35px 0;
     }
     .header {
         padding: 10px 0px;

@@ -11,7 +11,7 @@
                         <h1>Développeur Symfony</h1>
                         <h2>Mehdi Birembaut</h2>
                         <p>Je suis un développeur PHP/Symfony passionné par la création d'applications web innovantes. Avec plus d'un an d'expérience dans le domaine, j'ai travaillé sur divers projets et acquis des compétences solides en PHP, Symfony, HTML, CSS, JavaScript et bien plus encore.</p>
-                        <a class="read_more" href="#contact">Contactez moi</a>
+                        <a class="read_more" href="#contact">Contactez-moi</a>
                     </div>
                 </div>
             </div>
@@ -35,8 +35,8 @@
                             <li data-target="#we1" data-slide-to="1" class=""></li>
                             <li data-target="#we1" data-slide-to="2" class=""></li>
                         </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
+                        <div class="carousel-inner" style="height: 31.5rem;">
+                            <div class="carousel-item d-none d-sm-block active">
                                 <div class="container-fluid">
                                     <div class="carousel-caption we1_do">
                                         <div class="row">
@@ -65,7 +65,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="carousel-item">
+                            <div class="carousel-item d-sm-none">
                                 <div class="container-fluid">
                                     <div class="carousel-caption we1_do">
                                         <div class="row">
@@ -74,37 +74,16 @@
                                                     <i><img src="{{ asset('assets/v2/images/we1.png') }}" alt="developpement web"></i>
                                                     <h3>Développement <br>web</h3>
                                                     <p>Je suis un développeur PHP/Symfony passionné par la création de sites web innovants. J'ai travaillé sur divers projets de développement de sites web, créant des expériences utilisateur exceptionnelles.</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div id="bo_ho" class="we_box text_align_left">
-                                                    <i><img src="{{ asset('assets/v2/images/we3.png') }}" alt="design web"></i>
-                                                    <h3>Web <br>design</h3>
-                                                    <p>En plus du développement, je suis passionné par la conception de sites web élégants et réactifs qui offrent une expérience utilisateur exceptionnelle.</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div id="bo_ho" class="we_box text_align_left">
-                                                    <i><img src="{{ asset('assets/v2/images/we4.png') }}" style="width: 4rem;" alt="base de données"></i>
-                                                    <h3>Base de données <br>back-end</h3>
-                                                    <p>Je travaille sur la gestion des bases de données et la création de backend robustes pour garantir la fiabilité de mes applications web.</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="carousel-item">
+                            <div class="carousel-item d-sm-none">
                                 <div class="container-fluid">
                                     <div class="carousel-caption we1_do">
                                         <div class="row">
-                                            <div class="col-md-4">
-                                                <div id="bo_ho" class="we_box text_align_left">
-                                                    <i><img src="{{ asset('assets/v2/images/we1.png') }}" alt="developpement web"></i>
-                                                    <h3>Développement <br>web</h3>
-                                                    <p>Je suis un développeur PHP/Symfony passionné par la création de sites web innovants. J'ai travaillé sur divers projets de développement de sites web, créant des expériences utilisateur exceptionnelles.</p>
-                                                </div>
-                                            </div>
                                             <div class="col-md-4">
                                                 <div id="bo_ho" class="we_box text_align_left">
                                                     <i><img src="{{ asset('assets/v2/images/we3.png') }}" alt="design web"></i>
@@ -112,6 +91,14 @@
                                                     <p>En plus du développement, je suis passionné par la conception de sites web élégants et réactifs qui offrent une expérience utilisateur exceptionnelle.</p>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item d-sm-none">
+                                <div class="container-fluid">
+                                    <div class="carousel-caption we1_do">
+                                        <div class="row">
                                             <div class="col-md-4">
                                                 <div id="bo_ho" class="we_box text_align_left">
                                                     <i><img src="{{ asset('assets/v2/images/we4.png') }}" style="width: 4rem;" alt="base de données"></i>
@@ -124,11 +111,11 @@
                                 </div>
                             </div>
                         </div>
-                        <a class="carousel-control-prev" href="#we1" role="button" data-slide="prev">
+                        <a class="d-sm-none carousel-control-prev" href="#we1" role="button" data-slide="prev">
                             <i class="fa fa-angle-left" aria-hidden="true"></i>
                             <span class="sr-only">Previous</span>
                         </a>
-                        <a class="carousel-control-next" href="#we1" role="button" data-slide="next">
+                        <a class="d-sm-none carousel-control-next" href="#we1" role="button" data-slide="next">
                             <i class="fa fa-angle-right" aria-hidden="true"></i>
                             <span class="sr-only">Next</span>
                         </a>
@@ -151,14 +138,14 @@
                 <div class="col-md-6">
                     <div id="ho_nf" class="portfolio_main text_align_left">
                         <figure>
-                            <img src="{{ asset('assets/v2/images/recettesenfolie.png') }}" alt="#">
+                            <img src="{{ asset('assets/v2/images/trenois.png') }}" alt="projet trenois decamps">
                             <div class="portfolio_text">
                                 <div class="li_icon">
-                                    <a href="Javascript:void(0)"><i class="fa fa-search" aria-hidden="true"></i></a>
-                                    <a href="Javascript:void(0)"><i class="fa fa-link" aria-hidden="true"></i></a>
+                                    <a href="https://www.trenois.com/" target="_blank"><i style="font-size: 20px;" class="fa fa-search" aria-hidden="true"></i></a>
+                                    <a href="https://github.com/Mehdi2707" target="_blank"><i style="font-size: 30px;" class="fa fa-github" aria-hidden="true"></i></a>
                                 </div>
-                                <h3>Carrency Dashbord</h3>
-                                <p>There are many variations of passages of Lorem Ipsum available, but the majoraity have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable</p>
+                                <h3>Trenois Decamps</h3>
+                                <p>Développement d'une application web de petites annonces sur l'intranet de l'entreprise, création de monitoring pour aider les manutentionnaires à préparer les commandes, refonte partiel du site e-commerce et ajout de fonctionnalités sur l'intranet.</p>
                             </div>
                         </figure>
                     </div>
@@ -166,14 +153,14 @@
                 <div class="col-md-6">
                     <div id="ho_nf" class="portfolio_main text_align_left">
                         <figure>
-                            <img src="{{ asset('assets/v2/images/ecommerce.png') }}" alt="#">
+                            <img src="{{ asset('assets/v2/images/recettesenfolie.png') }}" alt="projet recettes en folie">
                             <div class="portfolio_text">
                                 <div class="li_icon">
-                                    <a href="Javascript:void(0)"><i class="fa fa-search" aria-hidden="true"></i></a>
-                                    <a href="Javascript:void(0)"><i class="fa fa-link" aria-hidden="true"></i></a>
+                                    <a href="https://recettesenfolie.fr" target="_blank"><i style="font-size: 20px;" class="fa fa-search" aria-hidden="true"></i></a>
+                                    <a href="https://github.com/Mehdi2707" target="_blank"><i style="font-size: 30px;" class="fa fa-github" aria-hidden="true"></i></a>
                                 </div>
-                                <h3>Carrency Dashbord</h3>
-                                <p>There are many variations of passages of Lorem Ipsum available, but the majoraity have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable</p>
+                                <h3>Recettes en folie</h3>
+                                <p>Développement complet d'un site de partage de recettes avec le framework Symfony.</p>
                             </div>
                         </figure>
                     </div>
@@ -181,14 +168,14 @@
                 <div class="col-md-6">
                     <div id="ho_nf" class="portfolio_main text_align_left">
                         <figure>
-                            <img src="{{ asset('assets/v2/images/blog.png') }}" alt="#">
+                            <img src="{{ asset('assets/v2/images/ecommerce.png') }}" alt="projet site e-commerce">
                             <div class="portfolio_text">
                                 <div class="li_icon">
-                                    <a href="Javascript:void(0)"><i class="fa fa-search" aria-hidden="true"></i></a>
-                                    <a href="Javascript:void(0)"><i class="fa fa-link" aria-hidden="true"></i></a>
+                                    <a href="{{ path('ecommerce_main') }}" target="_blank"><i style="font-size: 20px;" class="fa fa-search" aria-hidden="true"></i></a>
+                                    <a href="https://github.com/Mehdi2707/ecommerce" target="_blank"><i style="font-size: 30px;" class="fa fa-github" aria-hidden="true"></i></a>
                                 </div>
-                                <h3>Carrency Dashbord</h3>
-                                <p>There are many variations of passages of Lorem Ipsum available, but the majoraity have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable</p>
+                                <h3>Site E-commerce</h3>
+                                <p>Construction d'un site E-commerce entièrement fonctionnel et adaptable selon le projet.<br>(Le système de paiement n'est pas intégré)</p>
                             </div>
                         </figure>
                     </div>
@@ -196,14 +183,14 @@
                 <div class="col-md-6">
                     <div id="ho_nf" class="portfolio_main text_align_left">
                         <figure>
-                            <img src="{{ asset('assets/v2/images/cakezone.png') }}" alt="#">
+                            <img src="{{ asset('assets/v2/images/blog.png') }}" alt="projet blog">
                             <div class="portfolio_text">
                                 <div class="li_icon">
-                                    <a href="Javascript:void(0)"><i class="fa fa-search" aria-hidden="true"></i></a>
-                                    <a href="Javascript:void(0)"><i class="fa fa-link" aria-hidden="true"></i></a>
+                                    <a href="{{ path('blog_home') }}" target="_blank"><i style="font-size: 20px;" class="fa fa-search" aria-hidden="true"></i></a>
+                                    <a href="https://github.com/Mehdi2707/Blog" target="_blank"><i style="font-size: 30px;" class="fa fa-github" aria-hidden="true"></i></a>
                                 </div>
-                                <h3>Carrency Dashbord</h3>
-                                <p>There are many variations of passages of Lorem Ipsum available, but the majoraity have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable</p>
+                                <h3>Blog</h3>
+                                <p>Création d'un blog à personnaliser, parfait pour un lancement rapide avec une administration type Wordpress mais sous Symfony.</p>
                             </div>
                         </figure>
                     </div>
@@ -211,14 +198,14 @@
                 <div class="col-md-6">
                     <div id="ho_nf" class="portfolio_main text_align_left">
                         <figure>
-                            <img src="{{ asset('assets/v2/images/barberz.png') }}" alt="#">
+                            <img src="{{ asset('assets/v2/images/cakezone.png') }}" alt="projet template site vitrine pâtisserie">
                             <div class="portfolio_text">
                                 <div class="li_icon">
-                                    <a href="Javascript:void(0)"><i class="fa fa-search" aria-hidden="true"></i></a>
-                                    <a href="Javascript:void(0)"><i class="fa fa-link" aria-hidden="true"></i></a>
+                                    <a href="{{ path('app_cake_index') }}" target="_blank"><i style="font-size: 20px;" class="fa fa-search" aria-hidden="true"></i></a>
+                                    <a href="https://github.com/Mehdi2707/all-you-need-is-here" target="_blank"><i style="font-size: 30px;" class="fa fa-github" aria-hidden="true"></i></a>
                                 </div>
-                                <h3>Carrency Dashbord</h3>
-                                <p>There are many variations of passages of Lorem Ipsum available, but the majoraity have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable</p>
+                                <h3>Template Pâtisserie</h3>
+                                <p>Template pour un pâtissier qui souhaite créer son site vitrine afin d'améliorer sa visibilité.<br>Ceci n'est qu'un exemple parmis d'autres.</p>
                             </div>
                         </figure>
                     </div>
@@ -226,14 +213,14 @@
                 <div class="col-md-6">
                     <div id="ho_nf" class="portfolio_main text_align_left">
                         <figure>
-                            <img src="{{ asset('assets/v2/images/cloud.png') }}" alt="#">
+                            <img src="{{ asset('assets/v2/images/barberz.png') }}" alt="projet template site vitrine coiffeur">
                             <div class="portfolio_text">
                                 <div class="li_icon">
-                                    <a href="Javascript:void(0)"><i class="fa fa-search" aria-hidden="true"></i></a>
-                                    <a href="Javascript:void(0)"><i class="fa fa-link" aria-hidden="true"></i></a>
+                                    <a href="{{ path('app_barberz_index') }}" target="_blank"><i style="font-size: 20px;" class="fa fa-search" aria-hidden="true"></i></a>
+                                    <a href="https://github.com/Mehdi2707/all-you-need-is-here" target="_blank"><i style="font-size: 30px;" class="fa fa-github" aria-hidden="true"></i></a>
                                 </div>
-                                <h3>Carrency Dashbord</h3>
-                                <p>There are many variations of passages of Lorem Ipsum available, but the majoraity have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable</p>
+                                <h3>Template coiffeur</h3>
+                                <p>Template pour coiffeur qui voudrait avoir un site vitrine pour augmenter sa visibilité et son chiffre d'affaires.<br>Ceci n'est qu'un exemple parmis d'autres.</p>
                             </div>
                         </figure>
                     </div>
@@ -241,14 +228,14 @@
                 <div class="col-md-6">
                     <div id="ho_nf" class="portfolio_main text_align_left">
                         <figure>
-                            <img src="{{ asset('assets/v2/images/trenois.png') }}" alt="#">
+                            <img src="{{ asset('assets/v2/images/cloud.png') }}" alt="projet personnel cloud">
                             <div class="portfolio_text">
                                 <div class="li_icon">
-                                    <a href="Javascript:void(0)"><i class="fa fa-search" aria-hidden="true"></i></a>
-                                    <a href="Javascript:void(0)"><i class="fa fa-link" aria-hidden="true"></i></a>
+                                    <a href="https://abysse.info" target="_blank"><i style="font-size: 20px;" class="fa fa-search" aria-hidden="true"></i></a>
+                                    <a href="https://github.com/Mehdi2707/Cloud" target="_blank"><i style="font-size: 30px;" class="fa fa-github" aria-hidden="true"></i></a>
                                 </div>
-                                <h3>Carrency Dashbord</h3>
-                                <p>There are many variations of passages of Lorem Ipsum available, but the majoraity have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable</p>
+                                <h3>Cloud personnel (Bêta)</h3>
+                                <p>J'ai développé mon propre Cloud afin de ne pas être limité sur l'espace de stockage dont je souhaite disposer.<br>Inscrivez-vous pour demander un accès.</p>
                             </div>
                         </figure>
                     </div>
@@ -259,12 +246,62 @@
 
     <div id="contact" class="contact">
         <div class="container">
-            <div class="row ">
-                <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6 mb-5">
                     <div class="titlepage text_align_left">
-                        <h2>Get In Touch</h2>
+                        <h2>Restons en contact</h2>
                     </div>
-                    <form id="request" class="main_form">
+                    <div class="col-12">
+                        <i class="fa fa-hand-o-right text-danger" style="font-size: 20px;" aria-hidden="true"></i>&nbsp;
+                        <a href="https://www.linkedin.com/in/mehdi-birembaut/" target="_blank" style="font-size: 25px;"><i class="fa fa-linkedin-square" aria-hidden="true"></i>&nbsp;Profil LinkedIn</a>
+                    </div>
+                    <div class="col-12">
+                        <i class="fa fa-hand-o-right text-danger" style="font-size: 20px;" aria-hidden="true"></i>&nbsp;
+                        <a href="https://www.malt.fr/profile/mehdibirembaut" target="_blank" style="font-size: 25px;"><img style="width: 4rem;" src="{{ asset('assets/v2/images/malt.jpg') }}" alt="profil malt"></i>&nbsp;Profil Malt</a>
+                    </div>
+                    <div class="col-12">
+                        <i class="fa fa-hand-o-right text-danger" style="font-size: 20px;" aria-hidden="true"></i>&nbsp;
+                        <a href="https://comeup.com/en/service/347552/creer-votre-site-web-responsive-avec-symfony" target="_blank" style="font-size: 25px;"><img style="width: 2rem;" src="{{ asset('assets/v2/images/comeup.png') }}" alt="service comeup"></i>&nbsp;Service ComeUp</a>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-5">
+                    <div class="titlepage text_align_left" style="padding-bottom: 0;">
+                        <h2>Évaluation des clients</h2>
+                    </div>
+                    <div id="clientsl" class="carousel slide our_clientsl" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#clientsl" data-slide-to="0" class=""></li>
+                            <li data-target="#clientsl" data-slide-to="1" class=""></li>
+                            <li data-target="#clientsl" data-slide-to="2" class="active"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="container">
+                                    <div class="carousel-caption posi_in">
+                                        <div class="clientsl_text">
+                                            <i><img src="{{ asset('assets/v2/images/pg.png') }}" alt="client satisfait malt"></i>
+                                            <h3>Pierrick <img src="{{ asset('assets/v2/images/icon.png') }}" alt="client note"></h3>
+                                            <p>Mission effectué via Malt pour Buildrz.<br>Note : <i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev d-none" href="#clientsl" role="button" data-slide="prev">
+                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next d-none" href="#clientsl" role="button" data-slide="next">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="titlepage text_align_left">
+                        <h2>Un projet en tête ?</h2>
+                    </div>
+                    <form id="request" class="main_form mb-5">
                         <div class="row">
                             <div class="col-md-12">
                                 <input class="contactus" placeholder="Name" type="type" name=" Name">
@@ -279,65 +316,13 @@
                                 <textarea class="textarea" placeholder="Message" type="type" message="Name"></textarea>
                             </div>
                             <div class="col-md-12">
+                                <input type="file">
+                            </div>
+                            <div class="col-md-12">
                                 <button class="send_btn">Send Now</button>
                             </div>
                         </div>
                     </form>
-                </div>
-                <div class="col-md-6">
-                    <div class="titlepage text_align_left">
-                        <h2>What Says Clients</h2>
-                    </div>
-                    <div id="clientsl" class="carousel slide our_clientsl" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#clientsl" data-slide-to="0" class=""></li>
-                            <li data-target="#clientsl" data-slide-to="1" class=""></li>
-                            <li data-target="#clientsl" data-slide-to="2" class="active"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item">
-                                <div class="container">
-                                    <div class="carousel-caption posi_in">
-                                        <div class="clientsl_text">
-                                            <i><img src="images/clint.jpg" alt="#"></i>
-                                            <h3>Deno <img src="images/icon.png" alt="#"></h3>
-                                            <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem IpsumIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="container">
-                                    <div class="carousel-caption posi_in">
-                                        <div class="clientsl_text">
-                                            <i><img src="images/clint.jpg" alt="#"></i>
-                                            <h3>Deno <img src="images/icon.png" alt="#"></h3>
-                                            <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem IpsumIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item active">
-                                <div class="container">
-                                    <div class="carousel-caption posi_in">
-                                        <div class="clientsl_text">
-                                            <i><img src="images/clint.jpg" alt="#"></i>
-                                            <h3>Deno <img src="images/icon.png" alt="#"></h3>
-                                            <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem IpsumIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a class="carousel-control-prev" href="#clientsl" role="button" data-slide="prev">
-                            <i class="fa fa-angle-left" aria-hidden="true"></i>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#clientsl" role="button" data-slide="next">
-                            <i class="fa fa-angle-right" aria-hidden="true"></i>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>
