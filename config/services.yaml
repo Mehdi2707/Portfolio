@@ -27,7 +27,6 @@ services:
     # please note that last definitions always *replace* previous ones
 
 parameters:
-    lien_recettes: 'https://www.recettesenfolie.fr'
     medias_directory: 'public/uploads'
     uploads_directory: 'uploads/'
     app.jwtsecret: '%env(JWT_SECRET)%'

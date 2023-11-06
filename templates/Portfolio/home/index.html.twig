@@ -301,28 +301,19 @@
                     <div class="titlepage text_align_left">
                         <h2>Un projet en tête ?</h2>
                     </div>
-                    <form id="request" class="main_form mb-5">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <input class="contactus" placeholder="Name" type="type" name=" Name">
-                            </div>
-                            <div class="col-md-12">
-                                <input class="contactus" placeholder="Phone Number" type="type" name="Phone Number">
-                            </div>
-                            <div class="col-md-12">
-                                <input class="contactus" placeholder="Email" type="type" name="Email">
-                            </div>
-                            <div class="col-md-12">
-                                <textarea class="textarea" placeholder="Message" type="type" message="Name"></textarea>
-                            </div>
-                            <div class="col-md-12">
-                                <input type="file">
-                            </div>
-                            <div class="col-md-12">
-                                <button class="send_btn">Send Now</button>
-                            </div>
-                        </div>
-                    </form>
+                    <div class="mb-3">
+                        <p>Décrivez ci-dessous ce que vous souhaitez réaliser et recevez une réponse rapidement</p>
+                    </div>
+                    <div class="main_form mb-5">
+                        {{ form_start(form) }}
+                            {{ form_row(form.fullname) }}
+                            {{ form_row(form.email) }}
+                            {{ form_row(form.projectName) }}
+                            {{ form_row(form.projectDescription) }}
+                            {{ form_row(form.files) }}
+                            <button type="submit" class="send_btn">Envoyer</button>
+                        {{ form_end(form) }}
+                    </div>
                 </div>
             </div>
         </div>
