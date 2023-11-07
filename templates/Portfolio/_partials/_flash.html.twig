@@ -1,0 +1,15 @@
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="toast alert alert-{{ label}} fade show" role="alert">
+            <div class="toast-header">
+                <strong class="me-auto">Information</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                {{ message|raw }}
+            </div>
+        </div>
+    {% endfor %}
+{% endfor %}

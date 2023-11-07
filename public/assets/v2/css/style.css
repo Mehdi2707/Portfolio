@@ -806,6 +806,33 @@ ul.email li i {
 
 /** end contact section **/
 
+/** toast alert **/
+
+.toast {
+     position: fixed;
+     bottom: 20px;
+     right: 20px;
+     z-index: 1000;
+     max-width: 300px;
+     border-radius: 5px;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.toast-header {
+     padding: 5px;
+     border-bottom: 1px solid #444;
+}
+
+
+.toast-header strong {
+     color: #000;
+}
+
+.toast-body {
+     padding: 10px;
+}
+
+/** end toast alert **/
 
 /** testimonial **/
 
