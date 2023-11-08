@@ -145,7 +145,7 @@
                                     <a href="https://github.com/Mehdi2707" target="_blank"><i style="font-size: 30px;" class="fa fa-github" aria-hidden="true"></i></a>
                                 </div>
                                 <h3>Trenois Decamps</h3>
-                                <p>Développement d'une application web de petites annonces sur l'intranet de l'entreprise, création de monitoring pour aider les manutentionnaires à préparer les commandes, refonte partiel du site e-commerce et ajout de fonctionnalités sur l'intranet.</p>
+                                <p>Développement d'une application web de petites annonces sur l'intranet de l'entreprise, refonte partiel du site e-commerce et ajout de fonctionnalités sur l'intranet, création de monitorings pour aider les manutentionnaires.</p>
                             </div>
                         </figure>
                     </div>
@@ -311,7 +311,10 @@
                             {{ form_row(form.projectName) }}
                             {{ form_row(form.projectDescription) }}
                             {{ form_row(form.files) }}
-                            <button type="submit" class="send_btn">Envoyer</button>
+                            <button type="submit" class="send_btn" id="submitContact">
+                                <img src="{{ asset('assets/v2/images/tail-spin.svg') }}" alt="load" class="loading-icon" style="display: none;">
+                                <span id="buttonContent">Envoyer</span>
+                            </button>
                         {{ form_end(form) }}
                     </div>
                 </div>

@@ -200,6 +200,13 @@ File Name: responsive.css
         height: 135px;
         padding: 29px 14px;
     }
+    .portfolio_text h3 {
+        color: #0c0c0d;
+        font-size: 20px;
+        line-height: 30px;
+        font-weight: bold;
+        padding-bottom: 0;
+    }
     .portfolio_text p {
         font-size: 12px;
         line-height: 18px;
