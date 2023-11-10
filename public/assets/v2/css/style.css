@@ -454,6 +454,10 @@ ul.email li i {
      padding: 90px 0 0 0;
 }
 
+.admin-container .titlepage::before {
+     border: #2e2f34 solid 5px;
+}
+
 .we_do .titlepage::before {
      border: #2e2f34 solid 5px;
 }

@@ -1,0 +1,164 @@
+{% extends 'Portfolio/base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/v2/js/admin.js') }}" defer></script>
+{% endblock %}
+
+{% block body %}
+    <div class="container admin-container" style="padding-top: 180px;">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="titlepage text_align_center">
+                    <h2>Administration</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row portfolio" style="padding: 0;">
+            <div class="col-md-12">
+                <div class="titlepage text_align_left">
+                    <h2>Mes travaux</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for work in works %}
+                <div class="col-md-6">
+                    <div id="ho_nf" class="portfolio_main text_align_left">
+                        <figure>
+                            <img src="{{ asset('assets/uploads/works/' ~ work.imageName) }}" alt="{{ work.altImage }}">
+                            <div class="portfolio_text">
+                                <div class="li_icon">
+                                    <a href="{{ work.workLink }}" target="_blank"><i style="font-size: 20px;" class="fa fa-search" aria-hidden="true"></i></a>
+                                    <a href="{{ work.githubLink }}" target="_blank"><i style="font-size: 30px;" class="fa fa-github" aria-hidden="true"></i></a>
+                                </div>
+                                <h3>{{ work.title }}</h3>
+                                <p>{{ work.description }}</p>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="col-md-6">
+                <div id="ho_nf" class="portfolio_main text_align_left">
+                    <figure>
+                        <img src="{{ asset('assets/v2/images/trenois.png') }}" alt="projet trenois decamps">
+                        <div class="portfolio_text">
+                            <div class="li_icon">
+                                <a href="https://www.trenois.com/" target="_blank"><i style="font-size: 20px;" class="fa fa-search" aria-hidden="true"></i></a>
+                                <a href="https://github.com/Mehdi2707" target="_blank"><i style="font-size: 30px;" class="fa fa-github" aria-hidden="true"></i></a>
+                            </div>
+                            <h3>Trenois Decamps</h3>
+                            <p>Développement d'une application web de petites annonces sur l'intranet de l'entreprise, refonte partiel du site e-commerce et ajout de fonctionnalités sur l'intranet, création de monitorings pour aider les manutentionnaires.</p>
+                        </div>
+                    </figure>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div id="ho_nf" class="portfolio_main text_align_left">
+                    <figure>
+                        <img src="{{ asset('assets/v2/images/recettesenfolie.png') }}" alt="projet recettes en folie">
+                        <div class="portfolio_text">
+                            <div class="li_icon">
+                                <a href="https://recettesenfolie.fr" target="_blank"><i style="font-size: 20px;" class="fa fa-search" aria-hidden="true"></i></a>
+                                <a href="https://github.com/Mehdi2707" target="_blank"><i style="font-size: 30px;" class="fa fa-github" aria-hidden="true"></i></a>
+                            </div>
+                            <h3>Recettes en folie</h3>
+                            <p>Développement complet d'un site de partage de recettes avec le framework Symfony.</p>
+                        </div>
+                    </figure>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div id="ho_nf" class="portfolio_main text_align_left">
+                    <figure>
+                        <img src="{{ asset('assets/v2/images/ecommerce.png') }}" alt="projet site e-commerce">
+                        <div class="portfolio_text">
+                            <div class="li_icon">
+                                <a href="{{ path('ecommerce_main') }}" target="_blank"><i style="font-size: 20px;" class="fa fa-search" aria-hidden="true"></i></a>
+                                <a href="https://github.com/Mehdi2707/ecommerce" target="_blank"><i style="font-size: 30px;" class="fa fa-github" aria-hidden="true"></i></a>
+                            </div>
+                            <h3>Site E-commerce</h3>
+                            <p>Construction d'un site E-commerce entièrement fonctionnel et adaptable selon le projet.<br>(Le système de paiement n'est pas intégré)</p>
+                        </div>
+                    </figure>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div id="ho_nf" class="portfolio_main text_align_left">
+                    <figure>
+                        <img src="{{ asset('assets/v2/images/blog.png') }}" alt="projet blog">
+                        <div class="portfolio_text">
+                            <div class="li_icon">
+                                <a href="{{ path('blog_home') }}" target="_blank"><i style="font-size: 20px;" class="fa fa-search" aria-hidden="true"></i></a>
+                                <a href="https://github.com/Mehdi2707/Blog" target="_blank"><i style="font-size: 30px;" class="fa fa-github" aria-hidden="true"></i></a>
+                            </div>
+                            <h3>Blog</h3>
+                            <p>Création d'un blog à personnaliser, parfait pour un lancement rapide avec une administration type Wordpress mais sous Symfony.</p>
+                        </div>
+                    </figure>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div id="ho_nf" class="portfolio_main text_align_left">
+                    <figure>
+                        <img src="{{ asset('assets/v2/images/cakezone.png') }}" alt="projet template site vitrine pâtisserie">
+                        <div class="portfolio_text">
+                            <div class="li_icon">
+                                <a href="{{ path('app_cake_index') }}" target="_blank"><i style="font-size: 20px;" class="fa fa-search" aria-hidden="true"></i></a>
+                                <a href="https://github.com/Mehdi2707/all-you-need-is-here" target="_blank"><i style="font-size: 30px;" class="fa fa-github" aria-hidden="true"></i></a>
+                            </div>
+                            <h3>Template Pâtisserie</h3>
+                            <p>Template pour un pâtissier qui souhaite créer son site vitrine afin d'améliorer sa visibilité.<br>Ceci n'est qu'un exemple parmis d'autres.</p>
+                        </div>
+                    </figure>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div id="ho_nf" class="portfolio_main text_align_left">
+                    <figure>
+                        <img src="{{ asset('assets/v2/images/barberz.png') }}" alt="projet template site vitrine coiffeur">
+                        <div class="portfolio_text">
+                            <div class="li_icon">
+                                <a href="{{ path('app_barberz_index') }}" target="_blank"><i style="font-size: 20px;" class="fa fa-search" aria-hidden="true"></i></a>
+                                <a href="https://github.com/Mehdi2707/all-you-need-is-here" target="_blank"><i style="font-size: 30px;" class="fa fa-github" aria-hidden="true"></i></a>
+                            </div>
+                            <h3>Template coiffeur</h3>
+                            <p>Template pour coiffeur qui voudrait avoir un site vitrine pour augmenter sa visibilité et son chiffre d'affaires.<br>Ceci n'est qu'un exemple parmis d'autres.</p>
+                        </div>
+                    </figure>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div id="ho_nf" class="portfolio_main text_align_left">
+                    <figure>
+                        <img src="{{ asset('assets/v2/images/cloud.png') }}" alt="projet personnel cloud">
+                        <div class="portfolio_text">
+                            <div class="li_icon">
+                                <a href="https://abysse.info" target="_blank"><i style="font-size: 20px;" class="fa fa-search" aria-hidden="true"></i></a>
+                                <a href="https://github.com/Mehdi2707/Cloud" target="_blank"><i style="font-size: 30px;" class="fa fa-github" aria-hidden="true"></i></a>
+                            </div>
+                            <h3>Cloud personnel (Bêta)</h3>
+                            <p>J'ai développé mon propre Cloud afin de ne pas être limité sur l'espace de stockage dont je souhaite disposer.<br>Inscrivez-vous pour demander un accès.</p>
+                        </div>
+                    </figure>
+                </div>
+            </div>
+            <div class="col-md-6 m-auto text-center">
+                <button class="btn btn-success add-project" type="button">Ajouter un projet</button>
+            </div>
+            <div class="col-12 d-none form-project">
+                {{ form_start(form) }}
+                    {{ form_row(form.title) }}
+                    {{ form_row(form.description) }}
+                    {{ form_row(form.workLink) }}
+                    {{ form_row(form.githubLink) }}
+                    {{ form_row(form.imageName) }}
+                    {{ form_row(form.altImage) }}
+                    <button class="btn btn-success" type="submit">Confirmer</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
