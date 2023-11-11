@@ -5,6 +5,7 @@ namespace App\Controller\Portfolio;
 use App\Entity\Contact;
 use App\Entity\FilesContact;
 use App\Form\ContactFormType;
+use App\Repository\WorksRepository;
 use App\Service\SendMailService;
 use App\Service\UploadService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,12 +17,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     #[Route('', name: 'app_home')]
-    public function index(Request $request, EntityManagerInterface $entityManager, UploadService $uploadService, SendMailService $mailService): Response
+    public function index(Request $request, EntityManagerInterface $entityManager, UploadService $uploadService, SendMailService $mailService, WorksRepository $worksRepository): Response
     {
+        $works = $worksRepository->findAll();
         $contact = new Contact();
 
         $form = $this->createForm(ContactFormType::class, $contact);
-
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
@@ -67,6 +68,7 @@ class HomeController extends AbstractController
 
         return $this->render('Portfolio/home/index.html.twig', [
             'form' => $form->createView(),
+            'works' => $works
         ]);
     }
 }
