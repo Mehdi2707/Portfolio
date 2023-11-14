@@ -48,20 +48,12 @@ class PictureService
         return $fichier;
     }
 
-    public function delete(string $fichier, ?string $folder = '', ?int $width = 250, ?int $height = 250)
+    public function delete(string $fichier, ?string $folder = '')
     {
         if($fichier !== 'default.webp')
         {
             $success = false;
             $path = $this->params->get('images_directory').$folder;
-
-            $mini = $path.'/mini/'.$width.'x'.$height.'-'.$fichier;
-
-            if(file_exists($mini))
-            {
-                unlink($mini);
-                $success = true;
-            }
 
             $original = $path.'/'.$fichier;
 

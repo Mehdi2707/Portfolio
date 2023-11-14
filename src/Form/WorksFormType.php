@@ -28,7 +28,7 @@ class WorksFormType extends AbstractType
             ->add('imageName', FileType::class, [
                 'label' => 'Image',
                 'mapped' => false,
-                'required' => true,
+                'required' => false,
                 'attr' => [
                     'class' => 'form-control'
                 ],

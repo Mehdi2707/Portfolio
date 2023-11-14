@@ -1,0 +1,38 @@
+{% extends 'Portfolio/base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/v2/js/admin.js') }}" defer></script>
+{% endblock %}
+
+{% block body %}
+    <div class="container admin-container" style="padding-top: 180px;">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="titlepage text_align_center">
+                    <h2>Administration</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row portfolio" style="padding: 0;">
+            <div class="col-12">
+                <div class="mt-5">
+                    {{ form_start(form) }}
+                        {{ form_row(form.title) }}
+                        {{ form_row(form.description) }}
+                        {{ form_row(form.workLink) }}
+                        {{ form_row(form.githubLink) }}
+                        <div class="mb-3">
+                            <img src="{{ asset('assets/uploads/works/' ~ work.imageName) }}" alt="{{ work.altImage }}" width="500">
+                            <a href="{{ path('work_delete_image', {id: work.id}) }}" data-delete data-token="{{ csrf_token('delete' ~ work.id) }}">Supprimer</a>
+                        </div>
+                        {{ form_row(form.imageName) }}
+                        {{ form_row(form.altImage) }}
+                        <button class="btn btn-success" type="submit">Confirmer</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

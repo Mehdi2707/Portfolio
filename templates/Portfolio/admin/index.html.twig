@@ -26,7 +26,7 @@
                     </h2>
                 </div>
                 <div class="collapse" id="navbarToggleExternalContent">
-                    <div class=mt-5">
+                    <div class="mt-5">
                         <div class="row">
                             {% for work in works %}
                                 <div class="col-md-6">
@@ -37,6 +37,10 @@
                                                 <div class="li_icon">
                                                     <a href="{{ work.workLink }}" target="_blank"><i style="font-size: 20px;" class="fa fa-search" aria-hidden="true"></i></a>
                                                     <a href="{{ work.githubLink }}" target="_blank"><i style="font-size: 30px;" class="fa fa-github" aria-hidden="true"></i></a>
+                                                </div>
+                                                <div class="li_icon" style="float: right; position: relative;">
+                                                    <a href="{{ path('app_admin_edit_work', {id: work.id}) }}"><i style="font-size: 20px;" class="fa fa-edit" aria-hidden="true"></i></a>
+                                                    <a href="{{ path('work_delete', {id: work.id}) }}" data-work-delete data-token="{{ csrf_token('delete' ~ work.id) }}"><i style="font-size: 20px;" class="fa fa-trash" aria-hidden="true"></i></a>
                                                 </div>
                                                 <h3>{{ work.title }}</h3>
                                                 <p>{{ work.description | raw }}</p>
@@ -52,13 +56,13 @@
                             </div>
                             <div class="col-12 collapse" id="navbarToggleForm">
                                 {{ form_start(form) }}
-                                {{ form_row(form.title) }}
-                                {{ form_row(form.description) }}
-                                {{ form_row(form.workLink) }}
-                                {{ form_row(form.githubLink) }}
-                                {{ form_row(form.imageName) }}
-                                {{ form_row(form.altImage) }}
-                                <button class="btn btn-success" type="submit">Confirmer</button>
+                                    {{ form_row(form.title) }}
+                                    {{ form_row(form.description) }}
+                                    {{ form_row(form.workLink) }}
+                                    {{ form_row(form.githubLink) }}
+                                    {{ form_row(form.imageName) }}
+                                    {{ form_row(form.altImage) }}
+                                    <button class="btn btn-success" type="submit">Confirmer</button>
                                 {{ form_end(form) }}
                             </div>
                         </div>
