@@ -4,6 +4,7 @@ namespace App\Controller\Portfolio\Admin;
 
 use App\Entity\Works;
 use App\Form\WorksFormType;
+use App\Repository\ContactRepository;
 use App\Repository\WorksRepository;
 use App\Service\PictureService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,9 +17,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class MainController extends AbstractController
 {
     #[Route('/admin', name: 'app_admin')]
-    public function index(Request $request, PictureService $pictureService, EntityManagerInterface $entityManager, WorksRepository $worksRepository): Response
+    public function index(Request $request, PictureService $pictureService, EntityManagerInterface $entityManager, WorksRepository $worksRepository, ContactRepository $contactRepository): Response
     {
         $works = $worksRepository->findAll();
+        $contacts = $contactRepository->findBy([], ['id' => 'DESC']);
         $work = new Works();
 
         $form = $this->createForm(WorksFormType::class, $work);
@@ -52,8 +54,30 @@ class MainController extends AbstractController
 
         return $this->render('Portfolio/admin/index.html.twig', [
             'form' => $form->createView(),
-            'works' => $works
+            'works' => $works,
+            'contacts' => $contacts
         ]);
+    }
+
+    #[Route('/admin/download/file/{fileName}', name: 'contact_download_file')]
+    public function downloadFile($fileName): Response
+    {
+        $filePath = $this->getParameter('images_directory') . 'contact/' . $fileName;
+
+        if (file_exists($filePath))
+        {
+            $response = new Response();
+            $response->headers->set('Content-Type', 'application/octet-stream');
+            $response->headers->set('Content-Disposition', 'attachment; filename="' . $fileName . '"');
+            $response->setContent(file_get_contents($filePath));
+
+            return $response;
+        }
+        else
+        {
+            $this->addFlash('warning', 'Le fichier que vous voulez télécharger n\'existe pas');
+            return $this->redirectToRoute('app_admin');
+        }
     }
 
     #[Route('/admin/work/edit/{id}', name: 'app_admin_edit_work')]

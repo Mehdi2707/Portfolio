@@ -18,12 +18,12 @@
         <div class="row portfolio" style="padding: 0;">
             <div class="col-md-12">
                 <div class="titlepage text_align_left">
-                    <h2>
-                        Mes travaux
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler bg-light" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <h2>
+                            Mes travaux
                             <i class="fa fa-hand-o-down text-info" style="font-size: 30px;" aria-hidden="true"></i>
-                        </button>
-                    </h2>
+                        </h2>
+                    </button>
                 </div>
                 <div class="collapse" id="navbarToggleExternalContent">
                     <div class="mt-5">
@@ -65,6 +65,47 @@
                                     <button class="btn btn-success" type="submit">Confirmer</button>
                                 {{ form_end(form) }}
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row portfolio" style="padding: 0;">
+            <div class="col-md-12">
+                <div class="titlepage text_align_left">
+                    <button class="navbar-toggler bg-light" type="button" data-toggle="collapse" data-target="#navbarToggleContactContent" aria-controls="navbarToggleContactContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <h2>
+                            Contact
+                            <i class="fa fa-hand-o-down text-info" style="font-size: 30px;" aria-hidden="true"></i>
+                        </h2>
+                    </button>
+                </div>
+                <div class="collapse show" id="navbarToggleContactContent">
+                    <div class="mt-5">
+                        <div class="row">
+                            {% for contact in contacts %}
+                                <div class="col-md-12 mb-5">
+                                    <div class="card text-center">
+                                        <div class="card-header">
+                                            {{ contact.fullname }} - <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ contact.projectName }}</h5>
+                                            <p class="card-text">{{ contact.projectDescription }}</p>
+                                            <p class="card-text">
+                                                Fichier(s) joint : {{ contact.files|length }}<br>
+                                                {% for file in contact.files %}
+                                                    <a href="{{ path('contact_download_file', {fileName: file.name}) }}">{{ file.name }}</a><br>
+                                                {% endfor %}
+                                            </p>
+                                        </div>
+{#                                        <div class="card-footer text-muted">#}
+{#                                            2 days ago#}
+{#                                        </div>#}
+                                    </div>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
