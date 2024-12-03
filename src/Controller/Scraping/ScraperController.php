@@ -12,9 +12,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\DomCrawler\Crawler;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ScraperController extends AbstractController
 {
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/alert_disponibility', name: 'app_scraper')]
     public function index(AlertsRepository $alertsRepository): Response
     {
