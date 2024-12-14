@@ -19,6 +19,9 @@ class Alerts
     #[ORM\Column]
     private ?bool $isClosed = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $Email = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +47,18 @@ class Alerts
     public function setIsClosed(bool $isClosed): self
     {
         $this->isClosed = $isClosed;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->Email;
+    }
+
+    public function setEmail(string $Email): self
+    {
+        $this->Email = $Email;
 
         return $this;
     }

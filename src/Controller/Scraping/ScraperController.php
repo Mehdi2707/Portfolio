@@ -29,21 +29,23 @@ class ScraperController extends AbstractController
     public function createAlert(Request $request, EntityManagerInterface $em): JsonResponse
     {
         // Récupère les données du formulaire
-        $name = $request->get('alert_form')['name'] ?? null;
+        $link = $request->get('alert_form')['link'] ?? null;
+        $email = $request->get('alert_form')['email'] ?? null;
 
-        if (!$name) {
-            return new JsonResponse(['success' => false, 'message' => 'Le champ est requis.'], 400);
+        if (!$link || !$email) {
+            return new JsonResponse(['success' => false, 'message' => 'Le champ est requis.']);
         }
 
         // Crée une nouvelle instance de l'entité
         $alert = new Alerts();
-        $alert->setLink($name);
+        $alert->setLink($link);
+        $alert->setEmail($email);
         $alert->setIsClosed(false);
 
         // Persiste l'entité en base de données
         $em->persist($alert);
         $em->flush();
 
-        return new JsonResponse(['success' => true, 'message' => 'Alerte créée avec succès.']);
+        return new JsonResponse(['success' => true, 'data' => $link]);
     }
 }

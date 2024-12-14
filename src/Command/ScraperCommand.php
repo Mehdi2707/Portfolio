@@ -45,9 +45,8 @@ class ScraperCommand extends Command
         $client = HttpClient::create();
 
         foreach ($alerts as $alert) {
-            $lien = $alert->getLink(); // Supposons que chaque alerte a une URL
+            $lien = $alert->getLink();
 
-            //  try {
             // Requête HTTP vers la page produit
             $response = $client->request('GET', $lien);
             $html = $response->getContent();
@@ -59,19 +58,20 @@ class ScraperCommand extends Command
                 $isDisabled = $node->attr('disabled') !== null; // Vérifie si l'attribut `disabled` existe
                 $buttonText = $node->filter('span')->count() > 0 ? trim($node->filter('span')->text()) : '';
 
+                // Index 0 car le bouton du panier est le premier
                 if($index==0){
                     // Détection de l'état du produit
                     if ($isDisabled || strpos(strtolower($buttonText), 'rupture') !== false) {
                         //$output->writeln("Produit indisponible pour l'alerte : {$alert->getLink()}"); 
                     } else {
-                        $output->writeln("Produit disponible pour l'alerte : {$alert->getLink()}");
+                        $output->writeln("Produit disponible pour l'alerte : {$alert->getLink()} envoyé à {$alert->getEmail()}");
 
                         // Logique pour envoyer un email et fermer l'alerte
                         $email = (new Email())
                             ->from('mehdibrbt@gmail.com')
-                            ->to('d38.h4ck3ur@live.fr')
-                            ->subject('L\'article est disponible')
-                            ->text('L\'article est maintenant disponible : ' . $alert->getLink());
+                            ->to($alert->getEmail())
+                            ->subject('Votre produit est disponible !')
+                            ->text('Votre produit est maintenant disponible, ne rater pas cette occasion et passer commande : ' . $alert->getLink());
 
                         $this->mailer->send($email);
 

@@ -20,9 +20,9 @@
                         </li>
                         {#                            {% if is_granted('ROLE_ADMIN') %}#}
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Administration
-                            </a>
+{#                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">#}
+{#                                Administration#}
+{#                            </a>#}
                             <ul class="dropdown-menu dropdown-menu-dark">
                                 {#                                        <li><a class="dropdown-item" href="{{ path('app_admin') }}">Administration</a></li>#}
                                 {#                                        <li><a class="dropdown-item" href="{{ path('app_admin_users') }}">Utilisateurs</a></li>#}
@@ -58,19 +58,17 @@
     <div class="container" style="margin-top: 5rem">
         <div class="row">
             <div class="col-lg-5 col-12 m-auto">
-                <h3>Créer une nouvelle alerte</h3>
-                {#                <div class="progress" role="progressbar" aria-label="storage" aria-valuenow="{{ storageUsed }}" aria-valuemin="0" aria-valuemax="{{ storage }}">#}
-                {#                    <div class="progress-bar overflow-visible text-dark" style="width: {{ pourcentageStorageUsed }}%">{{ pourcentageStorageUsed }}% soit {{ storageUsed }}Go/{{ storage }}Go</div>#}
-                {#                </div>#}
+                <h3>Créer une alerte</h3>
             </div>
         </div>
 
         <div class="row mt-3">
             <div class="col-lg-5 col-12 m-auto">
-                {#                <h3>Ajouter un nouveau dossier</h3>#}
 
                 <form data-controller="add-alert" data-action="submit->add-alert#submit">
-                    <input class="form-control pr-1" type="text" id="alert_form_name" name="alert_form[name]" required="required" placeholder="Lien de l'article">
+                    <label for="alert_form_email" class="mb-1">Pour être informé dès que votre produit sera de nouveau en stock nous avons besoin de votre adresse email</label>
+                    <input class="form-control pr-1 mb-1" type="text" id="alert_form_link" name="alert_form[link]" required="required" placeholder="Lien du produit">
+                    <input class="form-control pr-1" type="text" id="alert_form_email" name="alert_form[email]" required="required" placeholder="Votre adresse email">
                     <div class="invalid-feedback"></div>
                     <div class="valid-feedback"></div>
                     <div style="height: 10px"></div>
@@ -78,18 +76,9 @@
                 </form>
             </div>
 
-            {#            <div class="col-lg-5 col-12 m-auto">#}
-            {#                <h3>Ajouter un nouveau fichier</h3>#}
-
-            {#                <div class="mb-3">#}
-            {#                    <input type="hidden" name="csrf-token" value="{{ csrf_token('upload_files') }}">#}
-            {#                    <input data-controller="upload" data-action="change->upload#next" class="form-control" type="file" id="uploaded_files_form_name" name="uploaded_files_form[name]" multiple required="required">#}
-            {#                </div>#}
-
-            {#                <div class="progress" role="progressbar" aria-label="Animated striped" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">#}
-            {#                    <div id="progress-upload" class="progress-bar progress-bar-striped progress-bar-animated" style="width: 0">0%</div>#}
-            {#                </div>#}
-            {#            </div>#}
+            <div class="col-12 text-center mt-3">
+                <h3>Alertes actives</h3>
+            </div>
 
             <div class="col-12 mt-3">
                 <div class="d-flex flex-wrap justify-content-center file-list">
@@ -154,6 +143,25 @@
                     .then(data => {
                         if (data.success) {
                             alert('Alerte créée avec succès !');
+
+                            let newCard = document.createElement('div');
+                            newCard.classList.add('card', 'm-2');
+
+                            let cardBody = document.createElement('div');
+                            cardBody.classList.add('card-body');
+
+                            let button = document.createElement('a');
+                            button.href = data.data;
+                            button.classList.add('btn', 'btn-success', 'btn-sm');
+                            button.textContent = data.data;
+
+                            cardBody.appendChild(button);
+                            newCard.appendChild(cardBody);
+
+                            let fileList = document.querySelector('.file-list');
+                            if (fileList) {
+                                fileList.appendChild(newCard);
+                            }
                         } else {
                             alert('Erreur : ' + data.message);
                         }
