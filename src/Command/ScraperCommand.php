@@ -11,6 +11,7 @@ use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class ScraperCommand extends Command
 {
@@ -42,14 +43,40 @@ class ScraperCommand extends Command
             return Command::SUCCESS;
         }
 
-        $client = HttpClient::create();
+        $client = HttpClient::create([
+            'timeout' => 30, // timeout global en secondes
+            'max_duration' => 35, // durée max pour la requête complète
+        ]);
 
         foreach ($alerts as $alert) {
             $lien = $alert->getLink();
+            $maxRetries = 3;
+            $attempt = 0;
+            $success = false;
+
+            while ($attempt < $maxRetries && !$success) {
+                try {
+                    $response = $client->request('GET', $lien, [
+                        'timeout' => 30,
+                        'max_duration' => 35,
+                    ]);
+                    $html = $response->getContent();
+                    $success = true;
+                } catch (TransportExceptionInterface $e) {
+                    $attempt++;
+                    $output->writeln("Erreur lors de la requête vers $lien (tentative $attempt) : " . $e->getMessage());
+                    sleep(2); // pause avant nouvelle tentative
+                }
+            }
+
+            if (!$success) {
+                $output->writeln("Échec de récupération après $maxRetries tentatives pour $lien");
+                continue; // passe à la prochaine alerte
+            }
 
             // Requête HTTP vers la page produit
-            $response = $client->request('GET', $lien);
-            $html = $response->getContent();
+//            $response = $client->request('GET', $lien);
+//            $html = $response->getContent();
 
             // Analyse du contenu HTML
             $crawler = new Crawler($html);
