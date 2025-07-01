@@ -12,6 +12,8 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class ScraperCommand extends Command
 {
@@ -54,6 +56,60 @@ class ScraperCommand extends Command
             $attempt = 0;
             $success = false;
 
+
+
+            if ($lien == "https://www.ticketmaster.fr/fr/manifestation/imagine-dragons-billet/idmanif/595972") {
+
+
+                $process = new Process(['node', __DIR__.'../../../scripts/check-ticketmaster.js', $lien]);
+                $process->run();
+
+                if (!$process->isSuccessful()) {
+                    throw new ProcessFailedException($process);
+                }
+
+                $result = trim($process->getOutput());
+
+                $crawler = new Crawler($result);
+
+                $placesDisponibles = false;
+
+                // Parcours toutes les listes avec la classe session-price-list
+                $crawler->filter('ul.session-price-list')->each(function (Crawler $ul) use (&$placesDisponibles) {
+                    // Parcours chaque item de la liste
+                    $ul->filter('li.session-price-item')->each(function (Crawler $li) use (&$placesDisponibles) {
+                        $statusNode = $li->filter('span.session-price-cat-title-status');
+                        if ($statusNode->count() === 0) {
+                            // Pas de status = probablement disponible
+                            $placesDisponibles = true;
+                            return;
+                        }
+                        $statusText = trim($statusNode->text());
+                        if (stripos($statusText, 'Épuisé') === false) {
+                            // Pas "Épuisé" dans le texte, donc dispo
+                            $placesDisponibles = true;
+                            return;
+                        }
+                    });
+                });
+
+                if ($placesDisponibles) {
+                    // Logique pour envoyer un email et fermer l'alerte
+                    $email = (new Email())
+                        ->from('mehdibrbt@gmail.com')
+                        ->to($alert->getEmail())
+                        ->subject('Imagine Dragons - Place disponible')
+                        ->text('Au moins une place s\'est libéré pour Imagine Dragons, ne perdez pas de temps : ' . $lien);
+
+                    $this->mailer->send($email);
+                }
+
+                continue;
+            }
+
+
+
+
             while ($attempt < $maxRetries && !$success) {
                 try {
                     $response = $client->request('GET', $lien, [
@@ -73,10 +129,6 @@ class ScraperCommand extends Command
                 $output->writeln("Échec de récupération après $maxRetries tentatives pour $lien");
                 continue; // passe à la prochaine alerte
             }
-
-            // Requête HTTP vers la page produit
-//            $response = $client->request('GET', $lien);
-//            $html = $response->getContent();
 
             // Analyse du contenu HTML
             $crawler = new Crawler($html);
