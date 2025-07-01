@@ -2,7 +2,7 @@ const { chromium } = require('playwright');
 const url = process.argv[2];
 
 (async () => {
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({ executablePath: '/usr/bin/chromium-browser', headless: true });
   const page = await browser.newPage();
 
   await page.goto(url, { waitUntil: 'domcontentloaded' });
