@@ -89,7 +89,7 @@ class ScraperCommand extends Command
                 if($index==0){
                     // Détection de l'état du produit
                     if ($isDisabled || strpos(strtolower($buttonText), 'rupture') !== false) {
-                        //$output->writeln("Produit indisponible pour l'alerte : {$alert->getLink()}"); 
+                        //$output->writeln("Produit indisponible pour l'alerte : {$alert->getLink()}");
                     } else {
                         $output->writeln("Produit disponible pour l'alerte : {$alert->getLink()} envoyé à {$alert->getEmail()}");
 
