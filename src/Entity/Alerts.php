@@ -22,6 +22,9 @@ class Alerts
     #[ORM\Column(length: 255)]
     private ?string $Email = null;
 
+    #[ORM\Column]
+    private ?bool $isAccessible = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Alerts
     public function setEmail(string $Email): self
     {
         $this->Email = $Email;
+
+        return $this;
+    }
+
+    public function isIsAccessible(): ?bool
+    {
+        return $this->isAccessible;
+    }
+
+    public function setIsAccessible(bool $isAccessible): self
+    {
+        $this->isAccessible = $isAccessible;
 
         return $this;
     }

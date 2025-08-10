@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
@@ -70,5 +71,57 @@ class HomeController extends AbstractController
             'form' => $form->createView(),
             'works' => $works
         ]);
+    }
+
+    #[Route('/skullking', name: 'app_skullking')]
+    public function skullking(Request $request, SessionInterface $session): Response
+    {
+        // Initialisation de la partie en session si elle n'existe pas
+        if (!$session->has('game')) {
+            $session->set('game', [
+                // Modifiez les noms ici
+                'players' => ['Joueur_1', 'Joueur_2', 'Joueur_3', 'Joueur_4'],
+                'rounds' => []
+            ]);
+        }
+
+        $game = $session->get('game');
+        $roundNumber = count($game['rounds']) + 1;
+
+        if ($request->isMethod('POST')) {
+            $data = $request->request->all();
+            $newRound = [];
+            foreach ($game['players'] as $player) {
+                // Conversion explicite en entier
+                $bet = (int) ($data['bet_' . $player] ?? 0);
+                $taken = (int) ($data['taken_' . $player] ?? 0);
+
+
+                $points = $this->calculatePoints($bet, $taken);
+                $newRound[$player] = ['bet' => $bet, 'taken' => $taken, 'points' => $points];
+            }
+
+            $game['rounds'][] = $newRound;
+            $session->set('game', $game);
+
+            return $this->redirectToRoute('app_skullking');
+        }
+
+        return $this->render('Portfolio/skullking/index.html.twig', [
+            'players' => $game['players'],
+            'rounds' => $game['rounds'],
+            'currentRound' => $roundNumber
+        ]);
+    }
+
+    private function calculatePoints(int $bet, int $taken): int
+    {
+        if ($bet == $taken) {
+            // Condition: si les plis annoncés sont égaux aux plis réalisés
+            return $bet == 0 ? 20 : $bet * 20;
+        } else {
+            // Condition: si les plis annoncés sont différents des plis réalisés
+            return abs($bet - $taken) * -10;
+        }
     }
 }
