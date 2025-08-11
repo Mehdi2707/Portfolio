@@ -80,7 +80,7 @@ class HomeController extends AbstractController
         if (!$session->has('game')) {
             $session->set('game', [
                 // Modifiez les noms ici
-                'players' => ['Joueur_1', 'Joueur_2', 'Joueur_3', 'Joueur_4'],
+                'players' => ['Mehdi', 'Chloé'],
                 'rounds' => []
             ]);
         }
@@ -95,9 +95,9 @@ class HomeController extends AbstractController
                 // Conversion explicite en entier
                 $bet = (int) ($data['bet_' . $player] ?? 0);
                 $taken = (int) ($data['taken_' . $player] ?? 0);
+                $bonus = (int) ($data['bonus_' . $player] ?? 0);
 
-
-                $points = $this->calculatePoints($bet, $taken);
+                $points = $this->calculatePoints($bet, $taken, $roundNumber) + $bonus;
                 $newRound[$player] = ['bet' => $bet, 'taken' => $taken, 'points' => $points];
             }
 
@@ -114,14 +114,26 @@ class HomeController extends AbstractController
         ]);
     }
 
-    private function calculatePoints(int $bet, int $taken): int
+    private function calculatePoints(int $bet, int $taken, int $roundNumber): int
     {
-        if ($bet == $taken) {
-            // Condition: si les plis annoncés sont égaux aux plis réalisés
-            return $bet == 0 ? 20 : $bet * 20;
+        // Cas 1 : Le joueur a misé sur zéro
+        if ($bet === 0) {
+            if ($taken === 0) {
+                // Mise à zéro réussie : 10 points par carte distribuée (équivalent au numéro de la manche)
+                return $roundNumber * 10;
+            } else {
+                // Mise à zéro manquée : -10 points par carte distribuée
+                return $roundNumber * -10;
+            }
         } else {
-            // Condition: si les plis annoncés sont différents des plis réalisés
-            return abs($bet - $taken) * -10;
+            // Cas 2 : Le joueur a misé sur un ou plusieurs plis
+            if ($bet === $taken) {
+                // Mise réussie : 20 points par pli annoncé
+                return $bet * 20;
+            } else {
+                // Mise manquée : -10 points par pli de différence
+                return abs($bet - $taken) * -10;
+            }
         }
     }
 }
