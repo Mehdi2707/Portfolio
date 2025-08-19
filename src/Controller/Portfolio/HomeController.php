@@ -76,13 +76,9 @@ class HomeController extends AbstractController
     #[Route('/skullking', name: 'app_skullking')]
     public function skullking(Request $request, SessionInterface $session): Response
     {
-        // Initialisation de la partie en session si elle n'existe pas
+        // Redirige vers la page d'initialisation si la partie n'existe pas en session
         if (!$session->has('game')) {
-            $session->set('game', [
-                // Modifiez les noms ici
-                'players' => ['Mehdi', 'Chloé'],
-                'rounds' => []
-            ]);
+            return $this->redirectToRoute('app_skullking_start');
         }
 
         $game = $session->get('game');
@@ -92,11 +88,11 @@ class HomeController extends AbstractController
             $data = $request->request->all();
             $newRound = [];
             foreach ($game['players'] as $player) {
-                // Conversion explicite en entier
                 $bet = (int) ($data['bet_' . $player] ?? 0);
                 $taken = (int) ($data['taken_' . $player] ?? 0);
                 $bonus = (int) ($data['bonus_' . $player] ?? 0);
 
+                // On passe le roundNumber à la fonction
                 $points = $this->calculatePoints($bet, $taken, $roundNumber) + $bonus;
                 $newRound[$player] = ['bet' => $bet, 'taken' => $taken, 'points' => $points];
             }
@@ -112,6 +108,52 @@ class HomeController extends AbstractController
             'rounds' => $game['rounds'],
             'currentRound' => $roundNumber
         ]);
+    }
+
+    #[Route('/skullking/start', name: 'app_skullking_start')]
+    public function start(Request $request, SessionInterface $session): Response
+    {
+        if ($request->isMethod('POST')) {
+            $playerNamesJson = $request->request->get('players_list');
+            $playerNames = json_decode($playerNamesJson, true);
+
+            // Assurez-vous que le tableau n'est pas vide
+            if (empty($playerNames)) {
+                // Optionnel : Gérer l'erreur si aucun joueur n'a été ajouté
+                // par exemple, en redirigeant vers la même page avec un message d'erreur.
+                return $this->redirectToRoute('app_skullking_start');
+            }
+
+            // Initialise la partie en session avec la liste de joueurs fournie
+            $session->set('game', [
+                'players' => $playerNames,
+                'rounds' => []
+            ]);
+
+            return $this->redirectToRoute('app_skullking');
+        }
+
+        // Affiche le formulaire d'initialisation
+        return $this->render('Portfolio/skullking/new.html.twig');
+    }
+
+    #[Route('/skullking/reset_all', name: 'app_skullking_reset_all')]
+    public function resetAll(SessionInterface $session): Response
+    {
+        $session->clear();
+        return $this->redirectToRoute('app_skullking_start');
+    }
+
+    #[Route('/skullking/reset_scores', name: 'app_skullking_reset_scores')]
+    public function resetScores(SessionInterface $session): Response
+    {
+        if ($session->has('game')) {
+            $game = $session->get('game');
+            $game['rounds'] = []; // Efface les scores
+            $session->set('game', $game);
+        }
+
+        return $this->redirectToRoute('app_skullking');
     }
 
     private function calculatePoints(int $bet, int $taken, int $roundNumber): int

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Démarrer une partie de Skull King</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+        body {
+            background-color: #0d1a26;
+            color: #e0e0e0;
+            font-family: 'Cinzel', serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            text-align: center;
+            color: #d4af37;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        form {
+            background-color: #2c211a;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            border: 2px solid #5a4b3d;
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        label {
+            color: #f0e68c;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            padding: 12px;
+            background-color: #e0e0e0;
+            border: 1px solid #5a4b3d;
+            border-radius: 4px;
+            color: #2c211a;
+            font-family: inherit;
+        }
+        #players-list {
+            padding: 10px;
+            border: 1px dashed #5a4b3d;
+            border-radius: 4px;
+            min-height: 50px;
+            background-color: #1e1711;
+        }
+        #players-list p {
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .remove-btn {
+            background-color: transparent;
+            border: none;
+            color: #ff4d4d;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+        .form-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        button {
+            background-color: #d4af37;
+            color: #0d1a26;
+            border: none;
+            padding: 12px;
+            font-family: 'Cinzel', serif;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 4px;
+            text-transform: uppercase;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: scale(1.05);
+        }
+        #add-player-btn {
+            background-color: #3f72af;
+            color: #e0e0e0;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8em; }
+            body { padding: 10px; }
+            form { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+<h1>Démarrer une nouvelle partie de Skull King</h1>
+<form id="start-game-form" method="POST">
+    <label for="player-name">Nom du joueur :</label>
+    <input type="text" id="player-name" placeholder="Ex: Mehdi">
+    <div class="form-actions">
+        <button type="button" id="add-player-btn">Ajouter le joueur</button>
+    </div>
+
+    <h2>Joueurs ajoutés</h2>
+    <div id="players-list">
+        <p>Aucun joueur ajouté.</p>
+    </div>
+
+    <input type="hidden" name="players_list" id="players_list_input">
+
+    <button type="submit" id="start-game-btn">Commencer la partie</button>
+</form>
+
+<script>
+    const playerNameInput = document.getElementById('player-name');
+    const addPlayerBtn = document.getElementById('add-player-btn');
+    const playersListDiv = document.getElementById('players-list');
+    const playersListInput = document.getElementById('players_list_input');
+    const startGameBtn = document.getElementById('start-game-btn');
+    let players = [];
+
+    addPlayerBtn.addEventListener('click', () => {
+        const name = playerNameInput.value.trim();
+        if (name === '') {
+            alert('Le nom du joueur ne peut pas être vide.');
+        } else if (players.includes(name)) {
+            alert('Ce joueur a déjà été ajouté.');
+        } else {
+            players.push(name);
+            updatePlayersList();
+            playerNameInput.value = '';
+            playerNameInput.focus();
+        }
+    });
+
+    // Fonction pour gérer la suppression d'un joueur
+    playersListDiv.addEventListener('click', (e) => {
+        if (e.target.classList.contains('remove-btn')) {
+            const nameToRemove = e.target.closest('p').textContent.trim();
+            players = players.filter(player => player !== nameToRemove);
+            updatePlayersList();
+        }
+    });
+
+    function updatePlayersList() {
+        playersListDiv.innerHTML = '';
+        if (players.length === 0) {
+            playersListDiv.innerHTML = '<p>Aucun joueur ajouté.</p>';
+            startGameBtn.disabled = true;
+        } else {
+            players.forEach(player => {
+                const p = document.createElement('p');
+                p.innerHTML = `${player} <button type="button" class="remove-btn">✖</button>`;
+                playersListDiv.appendChild(p);
+            });
+            playersListInput.value = JSON.stringify(players);
+            startGameBtn.disabled = false;
+        }
+    }
+    updatePlayersList();
+</script>
+</body>
+</html>
