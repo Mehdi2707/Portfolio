@@ -41,6 +41,7 @@ class ScraperController extends AbstractController
         $alert->setLink($link);
         $alert->setEmail($email);
         $alert->setIsClosed(false);
+        $alert->setIsAccessible(false);
 
         // Persiste l'entité en base de données
         $em->persist($alert);
