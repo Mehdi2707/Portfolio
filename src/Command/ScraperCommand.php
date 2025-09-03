@@ -74,45 +74,81 @@ class ScraperCommand extends Command
                 continue; // passe à la prochaine alerte
             }
 
-            // Requête HTTP vers la page produit
-//            $response = $client->request('GET', $lien);
-//            $html = $response->getContent();
-
-            // Analyse du contenu HTML
-            $crawler = new Crawler($html);
-
-            $crawler->filter('button.add-to-cart[data-button-action="add-to-cart"]')->each(function ($node, $index) use ($output, $alert) {
-                $isDisabled = $node->attr('disabled') !== null; // Vérifie si l'attribut `disabled` existe
-                $buttonText = $node->filter('span')->count() > 0 ? trim($node->filter('span')->text()) : '';
-
-                // Index 0 car le bouton du panier est le premier
-                if($index==0){
-                    // Détection de l'état du produit
-                    if ($isDisabled || strpos(strtolower($buttonText), 'rupture') !== false) {
-                        //$output->writeln("Produit indisponible pour l'alerte : {$alert->getLink()}");
-                    } else {
-                        $output->writeln("Produit disponible pour l'alerte : {$alert->getLink()} envoyé à {$alert->getEmail()}");
-
-                        // Logique pour envoyer un email et fermer l'alerte
-                        $email = (new Email())
-                            ->from('mehdibrbt@gmail.com')
-                            ->to($alert->getEmail())
-                            ->subject('Votre produit est disponible !')
-                            ->text('Votre produit est maintenant disponible, ne rater pas cette occasion et passer commande : ' . $alert->getLink());
-
-                        $this->mailer->send($email);
-
-                        // Marquer l'alerte comme fermée
-                        $alert->setIsClosed(true);
-                        $this->entityManager->persist($alert);
-                    }
-                }
-            });
+            if (strpos($lien, 'levelsautomobile.fr') !== false) {
+                $this->handleLevelsAutomobile($lien, $html, $alert, $output);
+            } else {
+                // Logique existante pour les autres sites
+                $this->handleRegularScraping($html, $alert, $output);
+            }
 
             // Sauvegarder les changements en base de données après le foreach
             $this->entityManager->flush();
         }
 
         return Command::SUCCESS;
+    }
+
+    private function handleLevelsAutomobile(string $lien, string $html, $alert, OutputInterface $output)
+    {
+        $previousHtml = $alert->getHtml();
+
+        if (!$previousHtml) {
+            // Premier passage, stocker le HTML initial
+            $alert->setHtml($html);
+            $this->entityManager->persist($alert);
+            $output->writeln("Premier scan de levelsautomobile.fr pour : $lien");
+            return;
+        }
+
+        if ($html !== $previousHtml) {
+            $output->writeln("Nouveau véhicule disponible sur levelsautomobile.fr, email envoyé à {$alert->getEmail()}");
+
+            // Envoyer l'email de notification
+            $email = (new Email())
+                ->from('mehdibrbt@gmail.com')
+                ->to($alert->getEmail())
+                ->subject('Nouveau véhicule disponible sur Levels Automobile !')
+                ->text('Un nouveau véhicule est maintenant disponible, ne ratez pas cette occasion et jetez un œil : ' . $alert->getLink());
+
+            $this->mailer->send($email);
+
+            // Mettre à jour le HTML stocké
+            $alert->setHtml($html);
+            $this->entityManager->persist($alert);
+        }
+    }
+
+    private function handleRegularScraping(string $html, $alert, OutputInterface $output)
+    {
+        // Analyse du contenu HTML (logique existante)
+        $crawler = new Crawler($html);
+
+        $crawler->filter('button.add-to-cart[data-button-action="add-to-cart"]')->each(function ($node, $index) use ($output, $alert) {
+            $isDisabled = $node->attr('disabled') !== null; // Vérifie si l'attribut `disabled` existe
+            $buttonText = $node->filter('span')->count() > 0 ? trim($node->filter('span')->text()) : '';
+
+            // Index 0 car le bouton du panier est le premier
+            if($index==0){
+                // Détection de l'état du produit
+                if ($isDisabled || strpos(strtolower($buttonText), 'rupture') !== false) {
+                    //$output->writeln("Produit indisponible pour l'alerte : {$alert->getLink()}");
+                } else {
+                    $output->writeln("Produit disponible pour l'alerte : {$alert->getLink()} envoyé à {$alert->getEmail()}");
+
+                    // Logique pour envoyer un email et fermer l'alerte
+                    $email = (new Email())
+                        ->from('mehdibrbt@gmail.com')
+                        ->to($alert->getEmail())
+                        ->subject('Votre produit est disponible !')
+                        ->text('Votre produit est maintenant disponible, ne ratez pas cette occasion et passez commande : ' . $alert->getLink());
+
+                    $this->mailer->send($email);
+
+                    // Marquer l'alerte comme fermée
+                    $alert->setIsClosed(true);
+                    $this->entityManager->persist($alert);
+                }
+            }
+        });
     }
 }

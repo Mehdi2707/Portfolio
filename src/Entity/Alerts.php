@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\AlertsRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AlertsRepository::class)]
@@ -24,6 +25,9 @@ class Alerts
 
     #[ORM\Column]
     private ?bool $isAccessible = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $html = null;
 
     public function getId(): ?int
     {
@@ -74,6 +78,18 @@ class Alerts
     public function setIsAccessible(bool $isAccessible): self
     {
         $this->isAccessible = $isAccessible;
+
+        return $this;
+    }
+
+    public function getHtml(): ?string
+    {
+        return $this->html;
+    }
+
+    public function setHtml(?string $html): self
+    {
+        $this->html = $html;
 
         return $this;
     }
