@@ -76,15 +76,27 @@ class HomeController extends AbstractController
     #[Route('/skullking', name: 'app_skullking')]
     public function skullking(Request $request, SessionInterface $session): Response
     {
-        // Redirige vers la page d'initialisation si la partie n'existe pas en session
-        if (!$session->has('game')) {
-            return $this->redirectToRoute('app_skullking_start');
-        }
+        if (!$session->has('game')) return $this->redirectToRoute('app_skullking_start');
 
         $game = $session->get('game');
-        $roundNumber = count($game['rounds']) + 1;
+        $totalRoundsPlayed = count($game['rounds']);
+        $maxRounds = $game['max_rounds'] ?? 10;
 
-        if ($request->isMethod('POST')) {
+        $displayRound = min($totalRoundsPlayed + 1, $maxRounds);
+        $isGameOver = $totalRoundsPlayed >= $maxRounds;
+
+        $totals = [];
+        foreach ($game['players'] as $player) { $totals[$player] = 0; }
+        foreach ($game['rounds'] as $round) {
+            foreach ($game['players'] as $player) {
+                $totals[$player] += $round[$player]['points'] ?? 0;
+            }
+        }
+
+        $ranking = $totals;
+        arsort($ranking);
+
+        if ($request->isMethod('POST') && !$isGameOver) {
             $data = $request->request->all();
             $newRound = [];
             foreach ($game['players'] as $player) {
@@ -92,21 +104,23 @@ class HomeController extends AbstractController
                 $taken = (int) ($data['taken_' . $player] ?? 0);
                 $bonus = (int) ($data['bonus_' . $player] ?? 0);
 
-                // On passe le roundNumber à la fonction
-                $points = $this->calculatePoints($bet, $taken, $roundNumber) + $bonus;
+                $points = $this->calculatePoints($bet, $taken, $totalRoundsPlayed + 1) + $bonus;
                 $newRound[$player] = ['bet' => $bet, 'taken' => $taken, 'points' => $points];
             }
 
             $game['rounds'][] = $newRound;
             $session->set('game', $game);
-
             return $this->redirectToRoute('app_skullking');
         }
 
         return $this->render('Portfolio/skullking/index.html.twig', [
             'players' => $game['players'],
             'rounds' => $game['rounds'],
-            'currentRound' => $roundNumber
+            'currentRound' => $displayRound,
+            'maxRounds' => $maxRounds,
+            'isGameOver' => $isGameOver,
+            'totals' => $totals,
+            'ranking' => $ranking
         ]);
     }
 
@@ -116,24 +130,20 @@ class HomeController extends AbstractController
         if ($request->isMethod('POST')) {
             $playerNamesJson = $request->request->get('players_list');
             $playerNames = json_decode($playerNamesJson, true);
+            $maxRounds = $request->request->getInt('max_rounds', 10);
 
-            // Assurez-vous que le tableau n'est pas vide
             if (empty($playerNames)) {
-                // Optionnel : Gérer l'erreur si aucun joueur n'a été ajouté
-                // par exemple, en redirigeant vers la même page avec un message d'erreur.
                 return $this->redirectToRoute('app_skullking_start');
             }
 
-            // Initialise la partie en session avec la liste de joueurs fournie
             $session->set('game', [
                 'players' => $playerNames,
-                'rounds' => []
+                'rounds' => [],
+                'max_rounds' => $maxRounds
             ]);
 
             return $this->redirectToRoute('app_skullking');
         }
-
-        // Affiche le formulaire d'initialisation
         return $this->render('Portfolio/skullking/new.html.twig');
     }
 

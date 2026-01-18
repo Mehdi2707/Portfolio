@@ -104,6 +104,8 @@
 <body>
 <h1>Démarrer une nouvelle partie de Skull King</h1>
 <form id="start-game-form" method="POST">
+    <label for="max-rounds">Nombre de manches :</label>
+    <input type="number" id="max-rounds" name="max_rounds" value="10" min="1" max="10" style="padding: 12px; border-radius: 4px; border: 1px solid #5a4b3d;">
     <label for="player-name">Nom du joueur :</label>
     <input type="text" id="player-name" placeholder="Ex: Mehdi">
     <div class="form-actions">
