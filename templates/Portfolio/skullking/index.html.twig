@@ -180,9 +180,13 @@
                     {% endfor %}
                 </div>
 
-                <div class="action-bar">
-                    <button type="button" id="nextBtn" class="btn-main" onclick="showResults()">Enregistrer les paris</button>
-                    <button type="submit" id="submitBtn" class="btn-main hidden">Valider le tour</button>
+                <div class="action-bar" style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                    <button type="button" id="backBtn" class="btn-step hidden" onclick="backToBets()" style="flex-shrink: 0; width: 40px; height: 40px;">
+                        ⬅
+                    </button>
+
+                    <button type="button" id="nextBtn" class="btn-main" onclick="showResults()" style="width: 100%;">Enregistrer les paris</button>
+                    <button type="submit" id="submitBtn" class="btn-main hidden" style="width: 100%;">Valider le tour</button>
                 </div>
 
                 <div id="bonusModal">
@@ -260,6 +264,16 @@
                 document.getElementById('disp-'+id).innerText = v;
             }
 
+            function backToBets() {
+                document.getElementById('phase-bet').classList.remove('hidden');
+                document.getElementById('phase-taken').classList.add('hidden');
+
+                document.getElementById('nextBtn').classList.remove('hidden');
+                document.getElementById('submitBtn').classList.add('hidden');
+                document.getElementById('backBtn').classList.add('hidden');
+                document.getElementById('bonusBtn').classList.add('hidden');
+            }
+
             function showResults() {
                 const playerCount = {{ players|length }};
 
@@ -271,6 +285,7 @@
                 document.getElementById('phase-taken').classList.remove('hidden');
                 document.getElementById('nextBtn').classList.add('hidden');
                 document.getElementById('submitBtn').classList.remove('hidden');
+                document.getElementById('backBtn').classList.remove('hidden');
                 document.getElementById('bonusBtn').classList.remove('hidden');
             }
 
@@ -352,6 +367,7 @@
                 document.getElementById('phase-taken').classList.add('hidden');
                 document.getElementById('nextBtn').classList.remove('hidden');
                 document.getElementById('submitBtn').classList.add('hidden');
+                document.getElementById('backBtn').classList.add('hidden');
                 document.getElementById('bonusBtn').classList.add('hidden');
             }
 
