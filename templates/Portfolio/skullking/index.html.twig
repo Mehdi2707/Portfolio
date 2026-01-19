@@ -233,6 +233,25 @@
 
         <script>
             let currentRoundLimit = {{ currentRound }};
+            const audio = document.getElementById('pirate-ambient');
+            const musicBtn = document.getElementById('music-control');
+            if(audio) audio.volume = 0.1;
+
+            function toggleMusic() {
+                if (!audio.paused) {
+                    audio.pause();
+                    musicBtn.innerText = '🔇';
+                } else {
+                    audio.play();
+                    musicBtn.innerText = '🔊';
+                }
+            }
+
+            document.addEventListener('click', () => {
+                if (audio && audio.paused && musicBtn.innerText !== '🔇') {
+                    audio.play().then(() => musicBtn.innerText = '🔊').catch(() => {});
+                }
+            }, { once: true });
 
             function change(id, d) {
                 let i = document.getElementById('in-'+id);
@@ -261,7 +280,6 @@
                 document.getElementById('bonus-disp-'+idx).innerText = i.value;
             }
 
-            // AJAX Submission
             document.getElementById('gameForm')?.addEventListener('submit', function(e) {
                 e.preventDefault();
 
@@ -334,18 +352,7 @@
                 document.getElementById('phase-taken').classList.add('hidden');
                 document.getElementById('nextBtn').classList.remove('hidden');
                 document.getElementById('submitBtn').classList.add('hidden');
-                // Masque à nouveau le bouton bonus pour le prochain tour
                 document.getElementById('bonusBtn').classList.add('hidden');
-            }
-
-            function toggleMusic() {
-                if (!audio.paused) {
-                    audio.pause();
-                    musicBtn.innerText = '🔇';
-                } else {
-                    audio.play();
-                    musicBtn.innerText = '🔊';
-                }
             }
 
             function createGold() {
