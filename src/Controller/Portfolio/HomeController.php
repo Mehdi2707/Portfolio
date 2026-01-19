@@ -10,6 +10,7 @@ use App\Service\SendMailService;
 use App\Service\UploadService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -96,13 +97,15 @@ class HomeController extends AbstractController
         $ranking = $totals;
         arsort($ranking);
 
-        if ($request->isMethod('POST') && !$isGameOver) {
+        if ($request->isMethod('POST')) {
+            $totalRoundsPlayed = count($game['rounds']);
             $data = $request->request->all();
             $newRound = [];
+
             foreach ($game['players'] as $player) {
-                $bet = (int) ($data['bet_' . $player] ?? 0);
-                $taken = (int) ($data['taken_' . $player] ?? 0);
-                $bonus = (int) ($data['bonus_' . $player] ?? 0);
+                $bet = (int)($data['bet_' . $player] ?? 0);
+                $taken = (int)($data['taken_' . $player] ?? 0);
+                $bonus = (int)($data['bonus_' . $player] ?? 0);
 
                 $points = $this->calculatePoints($bet, $taken, $totalRoundsPlayed + 1) + $bonus;
                 $newRound[$player] = ['bet' => $bet, 'taken' => $taken, 'points' => $points];
@@ -110,7 +113,27 @@ class HomeController extends AbstractController
 
             $game['rounds'][] = $newRound;
             $session->set('game', $game);
-            return $this->redirectToRoute('app_skullking');
+
+            $totalRoundsPlayed = count($game['rounds']);
+            $maxRounds = $game['max_rounds'] ?? 10;
+
+            $totals = [];
+            foreach ($game['players'] as $p) { $totals[$p] = 0; }
+            foreach ($game['rounds'] as $r) {
+                foreach ($game['players'] as $p) { $totals[$p] += $r[$p]['points']; }
+            }
+
+            $ranking = $totals; arsort($ranking);
+
+            return new JsonResponse([
+                'success' => true,
+                'isGameOver' => $totalRoundsPlayed >= $maxRounds,
+                'currentRound' => min($totalRoundsPlayed + 1, $maxRounds),
+                'totals' => $totals,
+                'ranking' => $ranking,
+                'newRoundData' => $newRound,
+                'roundNumber' => $totalRoundsPlayed
+            ]);
         }
 
         return $this->render('Portfolio/skullking/index.html.twig', [

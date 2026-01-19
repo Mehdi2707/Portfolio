@@ -1,296 +1,382 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Skull King Score</title>
-    <style>
-        :root { --bg: #0d1a26; --card: #2c211a; --gold: #d4af37; --silver: #bdc3c7; --bronze: #cd7f32; --accent: #ff7d00; }
-        body {
-            background-color: var(--bg); color: #e0e0e0; font-family: 'Segoe UI', sans-serif;
-            margin: 0; height: 100vh; display: flex; flex-direction: column; overflow: hidden;
-        }
-        header { display: flex; justify-content: space-between; padding: 10px; background: rgba(0,0,0,0.5); border-bottom: 2px solid var(--gold); }
-
-        /* Podium Styles */
-        .podium-container { display: flex; justify-content: center; align-items: flex-end; gap: 10px; padding: 20px 10px; flex-shrink: 0; }
-        .podium-step { background: var(--card); border: 2px solid; border-radius: 8px 8px 0 0; text-align: center; padding: 10px; width: 80px; position: relative; }
-        .rank-1 { height: 120px; border-color: var(--gold); order: 2; }
-        .rank-2 { height: 90px; border-color: var(--silver); order: 1; }
-        .rank-3 { height: 70px; border-color: var(--bronze); order: 3; }
-        .podium-name { font-size: 0.8rem; font-weight: bold; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; }
-        .podium-score { color: var(--gold); font-weight: bold; }
-        .crown { font-size: 1.5rem; position: absolute; top: -25px; left: 50%; transform: translateX(-50%); }
-
-        /* Saisie Joueurs 2x2 */
-        .players-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 10px; flex-shrink: 0; }
-        .player-card { background: var(--card); border-radius: 8px; padding: 10px; position: relative; text-align: center; border: 1px solid #5a4b3d; }
-        .player-name { font-weight: bold; display: block; margin-bottom: 5px; color: var(--gold); }
-        .val-display { font-size: 1.8rem; font-weight: bold; }
-        .controls { display: flex; flex-direction: column; position: absolute; right: 8px; top: 10px; gap: 5px; }
-        .btn-step { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--gold); background: none; color: var(--gold); font-weight: bold; }
-
-        /* Historique fixe */
-        .history { flex-grow: 1; overflow-y: auto; background: rgba(0,0,0,0.3); margin: 5px; border-radius: 8px; font-size: 0.8rem; }
-        table { width: 100%; border-collapse: collapse; }
-        th { position: sticky; top: 0; background: #1e1711; color: var(--gold); padding: 8px; border-bottom: 1px solid var(--gold); }
-        td { text-align: center; padding: 6px; border-bottom: 1px solid rgba(255,255,255,0.05); border-right: 1px solid rgba(255,255,255,0.05); }
-        .total-row { color: var(--gold); font-weight: bold; background: #1e1711; }
-
-        /* Modal Bonus */
-        #bonusModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100; flex-direction: column; padding: 15px; box-sizing: border-box; }
-        .bonus-row { border-bottom: 1px solid #333; padding: 10px 0; }
-        .bonus-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-top: 5px; }
-        .btn-bonus { background: #3f72af; color: white; border: none; padding: 8px 4px; font-size: 0.65rem; border-radius: 4px; display: flex; align-items: center; justify-content: center; gap: 3px; }
-
-        .action-bar { text-align: center; padding: 10px; }
-        .btn-main { background: var(--gold); color: #000; border: none; padding: 12px; border-radius: 5px; font-weight: bold; width: 90%; text-transform: uppercase; }
-        .hidden { display: none !important; }
-        #music-control {
-            position: fixed;
-            top: 3px;
-            left: 100px;
-            z-index: 1000;
-            background: rgba(44, 33, 26, 0.8);
-            border: 1px solid var(--gold);
-            border-radius: 50%;
-            width: 35px;
-            height: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
-        }
-        #music-control:active {
-            transform: scale(0.9);
-        }
-    </style>
-</head>
-<body>
-<div id="music-control" onclick="toggleMusic()" style="cursor:pointer; font-size: 1.2rem;">🔇</div>
-
-<audio id="pirate-ambient" loop>
-    <source src="{{ asset("/assets/son/pirate_ambiance.mp3") }}" type="audio/mpeg">
-</audio>
-
-<header>
-    <div onclick="document.getElementById('bonusModal').style.display='flex'">👑 🏴‍☠️ 🧜‍♀️</div>
-    <div><b>Manche {{ currentRound }} / {{ maxRounds }}</b></div>
-    <div onclick="if(confirm('Tout réinitialiser ?')) window.location.href='{{ path('app_skullking_reset_all') }}'">🔄</div>
-</header>
-
-{% if isGameOver %}
-    <div id="confetti-wrapper"></div>
-
-    <div class="podium-container" style="position: relative; z-index: 10;">
-        {% set rankIdx = 1 %}
-        {% for name, score in ranking %}
-            {% if rankIdx <= 3 %}
-                <div class="podium-step rank-{{ rankIdx }}">
-                    {% if rankIdx == 1 %}<span class="crown">👑</span>{% endif %}
-                    <span class="podium-name">{{ name }}</span>
-                    <span class="podium-score">{{ score }}</span>
-                </div>
-            {% endif %}
-            {% set rankIdx = rankIdx + 1 %}
-        {% endfor %}
-    </div>
-
-    <div style="padding: 10px; text-align: center; position: relative; z-index: 10;">
-        <h2 style="color: var(--gold); margin-top: 0;">🏴‍☠️ Victoire pour {{ ranking|keys|first }} !</h2>
-        <button class="btn-main" onclick="window.location.href='{{ path('app_skullking_reset_scores') }}'">Nouvelle Partie</button>
-    </div>
-
-    <style>
-        /* Styles pour les confettis/pièces */
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: var(--gold);
-            top: -10px;
-            border-radius: 50%; /* Pièces rondes */
-            z-index: 5;
-            animation: fall linear forwards;
-        }
-        @keyframes fall {
-            to {
-                transform: translateY(100vh) rotate(360deg);
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>Skull King Score</title>
+        <style>
+            :root { --bg: #0d1a26; --card: #2c211a; --gold: #d4af37; --silver: #bdc3c7; --bronze: #cd7f32; --accent: #ff7d00; }
+            body {
+                background-color: var(--bg); color: #e0e0e0; font-family: 'Segoe UI', sans-serif;
+                margin: 0; height: 100vh; display: flex; flex-direction: column; overflow: hidden;
             }
-        }
-    </style>
-{% else %}
-    <form id="gameForm" method="POST">
-        <div id="phase-bet" class="players-grid">
-            {% for player in players %}
-                <div class="player-card">
-                    <span class="player-name">{{ player }}</span>
-                    <div class="val-display" id="disp-bet-{{ loop.index0 }}">0</div>
-                    <input type="hidden" name="bet_{{ player }}" id="in-bet-{{ loop.index0 }}" value="0">
-                    <div class="controls">
-                        <button type="button" class="btn-step" onclick="change('bet-{{ loop.index0 }}', 1, {{ currentRound }})">+</button>
-                        <button type="button" class="btn-step" onclick="change('bet-{{ loop.index0 }}', -1, {{ currentRound }})">-</button>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+            header {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                align-items: center;
+                padding: 10px;
+                background: rgba(0,0,0,0.5);
+                border-bottom: 2px solid var(--gold);
+                height: 40px;
+            }
 
-        <div id="phase-taken" class="players-grid hidden">
-            {% for player in players %}
-                <div class="player-card">
-                    <span class="player-name">{{ player }}</span>
-                    <div class="val-display" id="disp-taken-{{ loop.index0 }}">0</div>
-                    <input type="hidden" name="taken_{{ player }}" id="in-taken-{{ loop.index0 }}" value="0">
-                    <div class="controls">
-                        <button type="button" class="btn-step" onclick="change('taken-{{ loop.index0 }}', 1, {{ currentRound }})">+</button>
-                        <button type="button" class="btn-step" onclick="change('taken-{{ loop.index0 }}', -1, {{ currentRound }})">-</button>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+            .header-col:nth-child(1) { text-align: left; }
+            .header-col:nth-child(2) { text-align: center; }
+            .header-col:nth-child(3) { text-align: right; }
 
-        <div class="action-bar">
-            <button type="button" id="nextBtn" class="btn-main" onclick="showResults()">Enregistrer les paris</button>
-            <button type="submit" id="submitBtn" class="btn-main hidden">Valider le tour</button>
-        </div>
+            #bonusBtn {
+                cursor: pointer;
+                display: inline-block;
+            }
 
-        <div id="bonusModal">
-            <h2 style="color:var(--gold); text-align: center;">Bonus de la Manche</h2>
-            <div style="overflow-y: auto; flex-grow: 1;">
-                {% for player in players %}
-                    <div class="bonus-row">
-                        <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <span style="color:var(--gold)">{{ player }}</span>
-                            <b id="bonus-disp-{{ loop.index0 }}">0</b>
+            #bonusBtn.hidden {
+                display: none !important;
+            }
+
+            /* Podium Styles */
+            .podium-container { display: flex; justify-content: center; align-items: flex-end; gap: 10px; padding: 20px 10px; flex-shrink: 0; }
+            .podium-step { background: var(--card); border: 2px solid; border-radius: 8px 8px 0 0; text-align: center; padding: 10px; width: 80px; position: relative; }
+            .rank-1 { height: 120px; border-color: var(--gold); order: 2; }
+            .rank-2 { height: 90px; border-color: var(--silver); order: 1; }
+            .rank-3 { height: 70px; border-color: var(--bronze); order: 3; }
+            .podium-name { font-size: 0.8rem; font-weight: bold; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; }
+            .podium-score { color: var(--gold); font-weight: bold; }
+            .crown { font-size: 1.5rem; position: absolute; top: -25px; left: 50%; transform: translateX(-50%); }
+
+            /* Saisie Joueurs 2x2 */
+            .players-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 10px; flex-shrink: 0; }
+            .player-card { background: var(--card); border-radius: 8px; padding: 10px; position: relative; text-align: center; border: 1px solid #5a4b3d; }
+            .player-name { font-weight: bold; display: block; margin-bottom: 5px; color: var(--gold); }
+            .val-display { font-size: 1.6rem; font-weight: bold; }
+            .controls { display: flex; flex-direction: column; position: absolute; right: 8px; top: 10px; gap: 5px; }
+            .btn-step { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--gold); background: none; color: var(--gold); font-weight: bold; }
+
+            /* Historique fixe */
+            .history { flex-grow: 1; overflow-y: auto; background: rgba(0,0,0,0.3); margin: 5px; border-radius: 8px; font-size: 0.8rem; }
+            table { width: 100%; border-collapse: collapse; }
+            th { position: sticky; top: 0; background: #1e1711; color: var(--gold); padding: 8px; border-bottom: 1px solid var(--gold); }
+            td { text-align: center; padding: 6px; border-bottom: 1px solid rgba(255,255,255,0.05); border-right: 1px solid rgba(255,255,255,0.05); }
+            .total-row { color: var(--gold); font-weight: bold; background: #1e1711; }
+
+            /* Modal Bonus */
+            #bonusModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100; flex-direction: column; padding: 15px; box-sizing: border-box; }
+            .bonus-row { border-bottom: 1px solid #333; padding: 10px 0; }
+            .bonus-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-top: 5px; }
+            .btn-bonus { background: #3f72af; color: white; border: none; padding: 8px 4px; font-size: 0.65rem; border-radius: 4px; display: flex; align-items: center; justify-content: center; gap: 3px; }
+
+            .action-bar { text-align: center; padding: 10px; }
+            .btn-main { background: var(--gold); color: #000; border: none; padding: 12px; border-radius: 5px; font-weight: bold; width: 90%; text-transform: uppercase; }
+            .hidden { display: none !important; }
+            #music-control {
+                position: fixed;
+                top: 3px;
+                left: 100px;
+                z-index: 1000;
+                background: rgba(44, 33, 26, 0.8);
+                border: 1px solid var(--gold);
+                border-radius: 50%;
+                width: 35px;
+                height: 35px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            }
+            #music-control:active {
+                transform: scale(0.9);
+            }
+            .confetti {
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                background-color: var(--gold);
+                top: -10px;
+                border-radius: 50%;
+                z-index: 5;
+                animation: fall linear forwards;
+            }
+            @keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }
+            .bet-reminder {
+                font-size: 0.7rem;
+                color: var(--silver);
+                opacity: 0.8;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="music-control" onclick="toggleMusic()" style="cursor:pointer; font-size: 1.2rem;">🔇</div>
+
+        <audio id="pirate-ambient" loop>
+            <source src="{{ asset("/assets/son/pirate_ambiance.mp3") }}" type="audio/mpeg">
+        </audio>
+
+        <header>
+            <div class="header-col">
+                <div id="bonusBtn" class="hidden" onclick="document.getElementById('bonusModal').style.display='flex'">👑 🏴‍☠️ 🧜‍♀️</div>
+            </div>
+
+            <div class="header-col">
+                <b id="round-header">Manche {{ currentRound }} / {{ maxRounds }}</b>
+            </div>
+
+            <div class="header-col">
+                <div onclick="if(confirm('Tout réinitialiser ?')) window.location.href='{{ path('app_skullking_reset_all') }}'">🔄</div>
+            </div>
+        </header>
+
+        <div id="podium-area" class="{{ isGameOver ? '' : 'hidden' }}">
+            <div id="confetti-wrapper"></div>
+            <div class="podium-container" style="position: relative; z-index: 10;">
+                {% set rankIdx = 1 %}
+                {% for name, score in ranking %}
+                    {% if rankIdx <= 3 %}
+                        <div class="podium-step rank-{{ rankIdx }}" id="podium-step-{{ rankIdx }}">
+                            {% if rankIdx == 1 %}<span class="crown">👑</span>{% endif %}
+                            <span class="podium-name">{{ name }}</span>
+                            <span class="podium-score">{{ score }}</span>
                         </div>
-                        <input type="hidden" name="bonus_{{ player }}" id="in-bonus-{{ loop.index0 }}" value="0">
-                        <div class="bonus-grid">
-                            <button type="button" class="btn-bonus" onclick="addB({{ loop.index0 }}, 10)">🦜 14C (+10)</button>
-                            <button type="button" class="btn-bonus" onclick="addB({{ loop.index0 }}, 20)">🏴‍☠️ 14N (+20)</button>
-                            <button type="button" class="btn-bonus" onclick="addB({{ loop.index0 }}, 20)">⚔️ P>S (+20)</button>
-                            <button type="button" class="btn-bonus" onclick="addB({{ loop.index0 }}, 30)">👑 SK>P (+30)</button>
-                            <button type="button" class="btn-bonus" onclick="addB({{ loop.index0 }}, 40)">🧜‍♀️ S>SK (+40)</button>
-                            <button type="button" class="btn-bonus" onclick="addB({{ loop.index0 }}, -10)" style="background:#c0392b">Reset</button>
-                        </div>
-                    </div>
+                    {% endif %}
+                    {% set rankIdx = rankIdx + 1 %}
                 {% endfor %}
             </div>
-            <button type="button" class="btn-main" onclick="document.getElementById('bonusModal').style.display='none'" style="margin-top:10px">Appliquer</button>
+            <div style="padding: 10px; text-align: center; position: relative; z-index: 10;">
+                <h2 id="victory-msg" style="color: var(--gold); margin-top: 0;">🏴‍☠️ Victoire pour {{ ranking|keys|first }} !</h2>
+                <button class="btn-main" onclick="window.location.href='{{ path('app_skullking_reset_scores') }}'">Nouvelle Partie</button>
+            </div>
         </div>
-    </form>
-{% endif %}
 
-<div class="history">
-    <table>
-        <thead>
-        <tr><th></th>{% for p in players %}<th>{{ p }}</th>{% endfor %}</tr>
-        </thead>
-        <tbody>
-        <tr class="total-row"><td>Score</td>{% for p in players %}<td>{{ totals[p] }}</td>{% endfor %}</tr>
-        {% for i in 1..maxRounds %}
-            {% set rData = rounds[i-1] ?? null %}
-            <tr>
-                <td>{{ i }}</td>
-                {% for p in players %}
-                    <td>{{ rData ? rData[p].points : '-' }}</td>
+        <div id="game-area" class="{{ isGameOver ? 'hidden' : '' }}">
+            <form id="gameForm">
+                <div id="phase-bet" class="players-grid">
+                    {% for player in players %}
+                        <div class="player-card">
+                            <span class="player-name">{{ player }}</span>
+                            <div class="val-display" id="disp-bet-{{ loop.index0 }}">0</div>
+                            <input type="hidden" name="bet_{{ player }}" id="in-bet-{{ loop.index0 }}" value="0">
+                            <div class="controls">
+                                <button type="button" class="btn-step" onclick="change('bet-{{ loop.index0 }}', 1)">+</button>
+                                <button type="button" class="btn-step" onclick="change('bet-{{ loop.index0 }}', -1)">-</button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div id="phase-taken" class="players-grid hidden">
+                    {% for player in players %}
+                        <div class="player-card">
+                            <span class="player-name">{{ player }}</span>
+                            <div class="val-display" id="disp-taken-{{ loop.index0 }}">0</div>
+
+                            <div class="bet-reminder">Parié : <span id="reminder-bet-{{ loop.index0 }}">0</span></div>
+
+                            <input type="hidden" name="taken_{{ player }}" id="in-taken-{{ loop.index0 }}" value="0">
+                            <div class="controls">
+                                <button type="button" class="btn-step" onclick="change('taken-{{ loop.index0 }}', 1)">+</button>
+                                <button type="button" class="btn-step" onclick="change('taken-{{ loop.index0 }}', -1)">-</button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="action-bar">
+                    <button type="button" id="nextBtn" class="btn-main" onclick="showResults()">Enregistrer les paris</button>
+                    <button type="submit" id="submitBtn" class="btn-main hidden">Valider le tour</button>
+                </div>
+
+                <div id="bonusModal">
+                    <h2 style="color:var(--gold); text-align: center;">Bonus de la Manche</h2>
+                    <div style="overflow-y: auto; flex-grow: 1;">
+                        {% for player in players %}
+                            <div class="bonus-row">
+                                <div style="display:flex; justify-content:space-between; align-items:center;">
+                                    <span style="color:var(--gold)">{{ player }}</span>
+                                    <b id="bonus-disp-{{ loop.index0 }}">0</b>
+                                </div>
+                                <input type="hidden" name="bonus_{{ player }}" id="in-bonus-{{ loop.index0 }}" value="0">
+                                <div class="bonus-grid">
+                                    <button type="button" class="btn-bonus" onclick="addB({{ loop.index0 }}, 10)">🦜 14C (+10)</button>
+                                    <button type="button" class="btn-bonus" onclick="addB({{ loop.index0 }}, 20)">🏴‍☠️ 14N (+20)</button>
+                                    <button type="button" class="btn-bonus" onclick="addB({{ loop.index0 }}, 20)">⚔️ P>S (+20)</button>
+                                    <button type="button" class="btn-bonus" onclick="addB({{ loop.index0 }}, 30)">👑 SK>P (+30)</button>
+                                    <button type="button" class="btn-bonus" onclick="addB({{ loop.index0 }}, 40)">🧜‍♀️ S>SK (+40)</button>
+                                    <button type="button" class="btn-bonus" onclick="addB({{ loop.index0 }}, -10)" style="background:#c0392b">Reset</button>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <button type="button" class="btn-main" onclick="document.getElementById('bonusModal').style.display='none'" style="margin-top:10px">Appliquer</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="history">
+            <table id="history-table">
+                <thead>
+                <tr><th></th>{% for p in players %}<th>{{ p }}</th>{% endfor %}</tr>
+                </thead>
+                <tbody>
+                <tr class="total-row"><td>Score</td>{% for p in players %}<td>{{ totals[p] }}</td>{% endfor %}</tr>
+                {% for i in 1..maxRounds %}
+                    {% set rData = rounds[i-1] ?? null %}
+                    <tr class="round-row" data-round="{{ i }}">
+                        <td>{{ i }}</td>
+                        {% for p in players %}
+                            <td>{{ rData ? rData[p].points : '-' }}</td>
+                        {% endfor %}
+                    </tr>
                 {% endfor %}
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
+                </tbody>
+            </table>
+        </div>
 
-<script>
-    function change(id, d, max) {
-        let i = document.getElementById('in-'+id);
-        let v = Math.max(0, Math.min(max, parseInt(i.value) + d));
-        i.value = v;
-        document.getElementById('disp-'+id).innerText = v;
-    }
-    function showResults() {
-        document.getElementById('phase-bet').classList.add('hidden');
-        document.getElementById('phase-taken').classList.remove('hidden');
-        document.getElementById('nextBtn').classList.add('hidden');
-        document.getElementById('submitBtn').classList.remove('hidden');
-    }
-    function addB(idx, val) {
-        let i = document.getElementById('in-bonus-'+idx);
-        i.value = val === -10 ? 0 : parseInt(i.value) + val;
-        document.getElementById('bonus-disp-'+idx).innerText = i.value;
-    }
+        <script>
+            let currentRoundLimit = {{ currentRound }};
 
-    {% if isGameOver %}
-    function createGold() {
-        const wrapper = document.getElementById('confetti-wrapper');
-        const colors = ['#d4af37', '#f1c40f', '#ff7d00', '#fff'];
+            function change(id, d) {
+                let i = document.getElementById('in-'+id);
+                let v = Math.max(0, Math.min(currentRoundLimit, parseInt(i.value) + d));
+                i.value = v;
+                document.getElementById('disp-'+id).innerText = v;
+            }
 
-        for (let i = 0; i < 50; i++) {
-            setTimeout(() => {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                const size = Math.random() * 8 + 5 + 'px';
-                confetti.style.width = size;
-                confetti.style.height = size;
-                confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
-                confetti.style.opacity = Math.random();
-                wrapper.appendChild(confetti);
-                setTimeout(() => confetti.remove(), 5000);
-            }, i * 100);
-        }
-    }
+            function showResults() {
+                const playerCount = {{ players|length }};
 
-    function playWinSound() {
-        const winAudio = new Audio('{{ asset("/assets/son/pirate_win.mp3") }}');
-        winAudio.volume = 0.4;
-        winAudio.play().catch(e => console.log("Son de victoire bloqué par le navigateur"));
-    }
+                for (let i = 0; i < playerCount; i++) {
+                    document.getElementById('reminder-bet-' + i).innerText = document.getElementById('in-bet-' + i).value;
+                }
 
-    window.onload = createGold;
-    {% endif %}
+                document.getElementById('phase-bet').classList.add('hidden');
+                document.getElementById('phase-taken').classList.remove('hidden');
+                document.getElementById('nextBtn').classList.add('hidden');
+                document.getElementById('submitBtn').classList.remove('hidden');
+                document.getElementById('bonusBtn').classList.remove('hidden');
+            }
 
-    const audio = document.getElementById('pirate-ambient');
-    const musicBtn = document.getElementById('music-control');
-    audio.volume = 0.1;
+            function addB(idx, val) {
+                let i = document.getElementById('in-bonus-'+idx);
+                i.value = val === -10 ? 0 : parseInt(i.value) + val;
+                document.getElementById('bonus-disp-'+idx).innerText = i.value;
+            }
 
-    window.addEventListener('load', () => {
-        const savedTime = localStorage.getItem('pirate_audio_time');
-        if (savedTime) audio.currentTime = parseFloat(savedTime);
+            // AJAX Submission
+            document.getElementById('gameForm')?.addEventListener('submit', function(e) {
+                e.preventDefault();
 
-        document.addEventListener('click', handleFirstInteraction, { once: true });
-        document.addEventListener('touchstart', handleFirstInteraction, { once: true });
-    });
+                let totalTaken = 0;
+                document.querySelectorAll('input[id^="in-taken-"]').forEach(input => {
+                    totalTaken += parseInt(input.value);
+                });
 
-    function handleFirstInteraction() {
-        const wasPlaying = localStorage.getItem('pirate_audio_playing');
-        if (wasPlaying !== 'false') {
-            audio.play().then(() => {
-                musicBtn.innerText = '🔊';
-            }).catch(e => console.log("Echec reprise audio"));
-        }
+                if (totalTaken !== currentRoundLimit) {
+                    alert(`Moussaillon ! Le compte n'est pas bon. Il faut exactement ${currentRoundLimit} plis au total (actuellement : ${totalTaken}).`);
+                    return;
+                }
 
-        {% if isGameOver %}
-        playWinSound();
-        {% endif %}
-    }
+                const formData = new FormData(this);
+                fetch('{{ path("app_skullking") }}', {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            updateUI(data);
+                        }
+                    });
+            });
 
-    window.addEventListener('beforeunload', () => {
-        localStorage.setItem('pirate_audio_time', audio.currentTime);
-        localStorage.setItem('pirate_audio_playing', !audio.paused);
-    });
+            function updateUI(data) {
+                currentRoundLimit = data.currentRound;
+                document.getElementById('round-header').innerText = `Manche ${data.currentRound} / {{ maxRounds }}`;
 
-    function toggleMusic() {
-        if (!audio.paused) {
-            audio.pause();
-            musicBtn.innerText = '🔇';
-            localStorage.setItem('pirate_audio_playing', 'false');
-        } else {
-            audio.play();
-            musicBtn.innerText = '🔊';
-            localStorage.setItem('pirate_audio_playing', 'true');
-        }
-    }
-</script>
-</body>
+                const totalRow = document.querySelector('.total-row');
+                const roundRow = document.querySelector(`.round-row[data-round="${data.roundNumber}"]`);
+                const playerNames = [{% for p in players %}'{{ p }}',{% endfor %}];
+
+                playerNames.forEach((p, idx) => {
+                    roundRow.cells[idx + 1].innerText = data.newRoundData[p].points;
+                    totalRow.cells[idx + 1].innerText = data.totals[p];
+                });
+
+                if (data.isGameOver) {
+                    document.getElementById('game-area').classList.add('hidden');
+                    document.getElementById('bonusBtn').classList.add('hidden');
+                    const podium = document.getElementById('podium-area');
+                    podium.classList.remove('hidden');
+
+                    const rankingEntries = Object.entries(data.ranking);
+                    rankingEntries.forEach((entry, idx) => {
+                        if (idx < 3) {
+                            const step = document.getElementById(`podium-step-${idx+1}`);
+                            step.querySelector('.podium-name').innerText = entry[0];
+                            step.querySelector('.podium-score').innerText = entry[1];
+                        }
+                    });
+                    document.getElementById('victory-msg').innerText = `🏴‍☠️ Victoire pour ${rankingEntries[0][0]} !`;
+                    createGold();
+                    playWinSound();
+                } else {
+                    resetForm();
+                }
+            }
+
+            function resetForm() {
+                document.getElementById('gameForm').reset();
+                document.querySelectorAll('.val-display, .bonus-row b').forEach(el => el.innerText = '0');
+                document.querySelectorAll('input[type="hidden"]').forEach(el => el.value = '0');
+                document.querySelectorAll('.bet-reminder span').forEach(el => el.innerText = '0');
+
+                document.getElementById('phase-bet').classList.remove('hidden');
+                document.getElementById('phase-taken').classList.add('hidden');
+                document.getElementById('nextBtn').classList.remove('hidden');
+                document.getElementById('submitBtn').classList.add('hidden');
+                // Masque à nouveau le bouton bonus pour le prochain tour
+                document.getElementById('bonusBtn').classList.add('hidden');
+            }
+
+            function toggleMusic() {
+                if (!audio.paused) {
+                    audio.pause();
+                    musicBtn.innerText = '🔇';
+                } else {
+                    audio.play();
+                    musicBtn.innerText = '🔊';
+                }
+            }
+
+            function createGold() {
+                const wrapper = document.getElementById('confetti-wrapper');
+                const colors = ['#d4af37', '#f1c40f', '#ff7d00', '#fff'];
+                for (let i = 0; i < 50; i++) {
+                    setTimeout(() => {
+                        const confetti = document.createElement('div');
+                        confetti.className = 'confetti';
+                        confetti.style.left = Math.random() * 100 + 'vw';
+                        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                        const size = Math.random() * 8 + 5 + 'px';
+                        confetti.style.width = size;
+                        confetti.style.height = size;
+                        confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+                        confetti.style.opacity = Math.random();
+                        wrapper.appendChild(confetti);
+                        setTimeout(() => confetti.remove(), 5000);
+                    }, i * 100);
+                }
+            }
+
+            function playWinSound() {
+                const winAudio = new Audio('{{ asset("/assets/son/pirate_win.mp3") }}');
+                winAudio.volume = 0.4;
+                winAudio.play().catch(e => console.log("Son bloqué"));
+            }
+
+            {% if isGameOver %}
+            window.onload = createGold;
+            {% endif %}
+        </script>
+    </body>
 </html>
